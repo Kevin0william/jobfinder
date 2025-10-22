@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion avec {{ receiver.username }} - JobFinder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .chat-header {
+            background: #ffffff;
+            color: #1e293b;
+            padding: 1.2rem 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .back-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #1e293b;
+            font-size: 1.2rem;
+        }
+        
+        .back-button:hover {
+            background: #e2e8f0;
+            transform: scale(1.1);
+        }
+        
+        .chat-user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .chat-user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-user-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .chat-user-status {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #f8fafc;
+            min-height: calc(100vh - 220px);
+        }
+        
+        .date-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .date-divider span {
+            background: #e2e8f0;
+            color: #64748b;
+            padding: 0.4rem 1rem;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .message {
+            display: flex;
+            flex-direction: column;
+            max-width: 70%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message.sent {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+        
+        .message.received {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
+        
+        .message-bubble {
+            padding: 0.9rem 1.2rem;
+            border-radius: 16px;
+            word-wrap: break-word;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .message.sent .message-bubble {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.received .message-bubble {
+            background: #ffffff;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .message-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 0.4rem;
+            padding: 0 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .message-time {
+            font-weight: 500;
+        }
+        
+        .message-form-container {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        .message-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 28px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            transition: all 0.3s ease;
+            resize: none;
+            min-height: 52px;
+            max-height: 140px;
+            line-height: 1.5;
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .message-input::placeholder {
+            color: #94a3b8;
+        }
+        
+        .send-button {
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: #ffffff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+        
+        .send-button:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            transform: scale(1.08);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+        }
+        
+        .send-button:active {
+            transform: scale(0.96);
+        }
+        
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        
+        .no-messages {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .chat-header {
+                padding: 1rem;
+            }
+            .chat-user-name {
+                font-size: 1.1rem;
+            }
+            .chat-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .messages-container {
+                padding: 1rem;
+            }
+            .message {
+                max-width: 85%;
+            }
+            .message-form-container {
+                padding: 1rem;
+            }
+            .message-input {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            .send-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        .messages-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .messages-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        .messages-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-header">
+        <div class="chat-header-left">
+            <a href="{% url 'user_list' %}" class="back-button">←</a>
+            <div class="chat-user-info">
+                <div class="chat-avatar">{{ receiver.username.0|upper }}</div>
+                <div class="chat-user-details">
+                    <div class="chat-user-name">{{ receiver.username }}</div>
+                    <div class="chat-user-status">En ligne</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <div class="messages-container" id="messagesContainer">
+            {% if messages %} {% for message in messages %} {% if message.sender == request.user %}
+            <div class="message sent" data-timestamp="{{ message.date.timestamp }}">
+                <div class="message-bubble">{{ message.message }}</div>
+                <div class="message-label">
+                    <span class="message-time">{{message.date|date:"H:i"}}</span>
+                </div>
+            </div>
+            {% else %}
+            <div class="message received" data-timestamp="{{ message.date.timestamp }}">
+                <div class="message-bubble">{{ message.message }}</div>
+                <div class="message-label">
+                    <span class="message-time">{{message.date|date:"H:i"}}</span>
+                </div>
+            </div>
+            {% endif %} {% endfor %} {% else %}
+            <div class="no-messages">
+                <p>Aucun message pour le moment. Commencez la conversation!</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="message-form-container">
+            <form method="post" class="message-form" id="messageForm">
+                {% csrf_token %}
+                <textarea name="message" class="message-input" placeholder="Écrivez votre message..." id="messageInput" rows="1" required></textarea>
+                <button type="submit" class="send-button">➤</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messageInput = document.getElementById('messageInput');
+        const messageForm = document.getElementById('messageForm');
+        const sendButton = messageForm.querySelector('.send-button');
+
+        function scrollToBottom(smooth = false) {
+            if (!messagesContainer) return;
+
+            setTimeout(() => {
+                messagesContainer.scrollTo({
+                    top: messagesContainer.scrollHeight,
+                    behavior: smooth ? 'smooth' : 'auto'
+                });
+            }, 100);
+        }
+
+        function formatMessageDates() {
+            const messages = document.querySelectorAll('.message');
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            let lastDateLabel = null;
+
+            messages.forEach((message) => {
+                const timestamp = parseFloat(message.dataset.timestamp) * 1000;
+                const messageDate = new Date(timestamp);
+                const messageDateOnly = new Date(messageDate.getFullYear(), messageDate.getMonth(), messageDate.getDate());
+
+                const diffTime = today - messageDateOnly;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+                let dateLabel = '';
+
+                if (diffDays === 0) {
+                    dateLabel = "Aujourd'hui";
+                } else if (diffDays === 1) {
+                    dateLabel = "Hier";
+                } else if (diffDays < 7) {
+                    const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                    dateLabel = jours[messageDate.getDay()];
+                } else {
+                    dateLabel = messageDate.toLocaleDateString('fr-FR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    });
+                }
+
+                if (dateLabel !== lastDateLabel) {
+                    const divider = document.createElement('div');
+                    divider.className = 'date-divider';
+                    divider.innerHTML = `<span>${dateLabel}</span>`;
+                    message.parentNode.insertBefore(divider, message);
+                    lastDateLabel = dateLabel;
+                }
+
+                if (diffDays > 0) {
+                    const timeLabel = message.querySelector('.message-time');
+                    if (timeLabel) {
+                        const fullDate = messageDate.toLocaleDateString('fr-FR', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric'
+                        });
+                        const time = messageDate.toLocaleTimeString('fr-FR', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        timeLabel.textContent = `${fullDate} à ${time}`;
+                    }
+                }
+            });
+        }
+
+        function initializeChat() {
+            formatMessageDates();
+            scrollToBottom(false);
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeChat);
+        window.addEventListener('load', () => scrollToBottom(false));
+        window.addEventListener('pageshow', () => scrollToBottom(false));
+
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 140) + 'px';
+
+            if (this.value.trim()) {
+                sendButton.disabled = false;
+            } else {
+                sendButton.disabled = true;
+            }
+        });
+
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (this.value.trim()) {
+                    messageForm.submit();
+                }
+            }
+        });
+
+        messageForm.addEventListener('submit', function(e) {
+            if (!messageInput.value.trim()) {
+                e.preventDefault();
+                return;
+            }
+            scrollToBottom(true);
+        });
+
+        const observer = new MutationObserver(() => {
+            scrollToBottom(true);
+        });
+
+        if (messagesContainer) {
+            observer.observe(messagesContainer, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        setInterval(() => {
+            const currentScroll = messagesContainer.scrollTop;
+            const maxScroll = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+
+            if (maxScroll - currentScroll < 100) {
+                scrollToBottom(true);
+            }
+        }, 500);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Trouvez votre opportunité au Cameroun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(3, 105, 161, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo span {
+            color: #38bdf8;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, #0369a1 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: #475569;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0c4a6e;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #0369a1, #38bdf8);
+            border-radius: 2px;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(3, 105, 161, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid #e0f2fe;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0369a1, #38bdf8);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(3, 105, 161, 0.2);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0369a1 0%, #38bdf8 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            border-radius: 24px;
+            margin: 4rem auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 60px rgba(3, 105, 161, 0.3);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            color: #e0f2fe;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: #ffffff;
+            color: #0369a1;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            color: #e0f2fe;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            margin-top: 5rem;
+        }
+        
+        footer p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        footer strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+            }
+            .nav-links a {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            .hero {
+                margin: 2rem auto;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .main-content {
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+            .section-title {
+                font-size: 1.75rem;
+            }
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-bottom: 3rem;
+            }
+            .card {
+                padding: 2rem;
+            }
+            .card-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .card h3 {
+                font-size: 1.25rem;
+            }
+            .card p {
+                font-size: 0.95rem;
+            }
+            .cta-section {
+                padding: 3rem 1.5rem;
+                margin: 2rem 1rem;
+            }
+            .cta-section h2 {
+                font-size: 1.75rem;
+            }
+            .cta-section p {
+                font-size: 1rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .btn {
+                width: 100%;
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.25rem;
+            }
+            .nav-links a {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .cta-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Job<span>Finder</span></a>
+            <nav class="nav-links">
+                <a href="{% url 'inscription' %}">S'inscrire</a>
+                <a href="{% url 'connexion' %}">Se connecter</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Trouvez votre <span>opportunité</span> au Cameroun</h1>
+        <p>JobFinder est la plateforme numérique innovante qui connecte les talents camerounais avec des opportunités professionnelles et commerciales dans tout le territoire national.</p>
+    </div>
+
+    <main class="main-content">
+        <section class="mission-section">
+            <h2 class="section-title">Notre Mission</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Accessibilité pour Tous</h3>
+                    <p>JobFinder démocratise l'accès à l'emploi au Cameroun. Notre plateforme permet à chaque citoyen, quel que soit son niveau ou sa localisation, de découvrir facilement des opportunités professionnelles adaptées à ses compétences et aspirations.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-earth-africa"></i></div>
+                    <h3>Couverture Nationale</h3>
+                    <p>De Douala à Maroua, de Yaoundé à Bamenda, JobFinder couvre l'ensemble du territoire camerounais. Nous connectons les employeurs et les chercheurs d'emploi dans toutes les régions pour favoriser le développement économique local.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <h3>Diversité des Opportunités</h3>
+                    <p>Notre plateforme accueille tous types d'opportunités professionnelles : emplois salariés, missions freelance, stages, apprentissages et activités entrepreneuriales. Chacun trouve sa place sur JobFinder.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="actions-section">
+            <h2 class="section-title">Ce que Vous Pouvez Faire</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3>Créez des Offres d'Emploi</h3>
+                    <p>Tout le monde peut publier des offres d'emploi gratuitement ! Que vous soyez une entreprise qui recrute, un particulier cherchant de l'aide pour une tâche spécifique, ou quelqu'un ayant besoin d'un service, créez votre annonce en quelques
+                        clics.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <h3>Trouvez un Emploi</h3>
+                    <p>Parcourez des centaines d'offres actualisées quotidiennement. Filtrez par secteur, localisation et type de contrat. Postulez en quelques clics et suivez vos candidatures en temps réel depuis votre tableau de bord personnel.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-store"></i></div>
+                    <h3>Vendez vos Produits</h3>
+                    <p>Entrepreneurs, vendeurs et revendeurs, présentez vos produits librement ! JobFinder vous offre une vitrine pour développer votre commerce, atteindre de nouveaux clients et faire croître votre activité entrepreneuriale.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Rejoignez JobFinder Aujourd'hui</h2>
+            <p>Créez votre compte gratuitement et accédez à des milliers d'opportunités professionnelles et commerciales à travers le Cameroun. Votre prochaine opportunité vous attend !</p>
+            <div class="cta-buttons">
+                <a href="{% url 'inscription' %}" class="btn btn-primary">S'inscrire Gratuitement</a>
+                <a href="{% url 'connexion' %}" class="btn btn-secondary">Se connecter</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>JobFinder</strong> - Votre partenaire emploi et commerce au Cameroun</p>
+        <p>&copy; 2025 JobFinder. Tous droits réservés.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un produit - JobFinder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #134e4a 0%, #0f766e 50%, #14b8a6 100%);
+            position: relative;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+        /* body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -250px;
+            left: -250px;
+            animation: float 12s ease-in-out infinite reverse;
+        } */
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(60px, 60px) scale(1.15);
+            }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 28px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+            width: 100%;
+            max-width: 650px;
+            padding: 3.5rem;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.7s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .logo h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #134e4a;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .logo h1 span {
+            background: linear-gradient(135deg, #0f766e 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo p {
+            color: #64748b;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .form-title h2 {
+            font-size: 2rem;
+            color: #134e4a;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+        
+        .form-title p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0f766e, #14b8a6, #2dd4bf);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.6rem;
+            transition: color 0.3s ease;
+        }
+        
+        .form-group label .required {
+            color: #ef4444;
+            margin-left: 3px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.1rem 1.3rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0f766e;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #94a3b8;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+            line-height: 1.6;
+        }
+        
+        .char-counter {
+            position: absolute;
+            bottom: -22px;
+            right: 0;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+        
+        .char-counter.warning {
+            color: #f59e0b;
+        }
+        
+        .char-counter.danger {
+            color: #ef4444;
+        }
+        
+        .file-upload-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.5rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .file-upload-label:hover {
+            border-color: #0f766e;
+            background: #f0fdfa;
+            color: #0f766e;
+            transform: translateY(-2px);
+        }
+        
+        .file-upload-label.has-file {
+            border-color: #10b981;
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .file-upload-icon {
+            font-size: 1.5rem;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .file-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0fdfa;
+            border-radius: 12px;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .file-preview.show {
+            display: flex;
+        }
+        
+        .file-preview img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .file-preview-info {
+            flex: 1;
+        }
+        
+        .file-preview-name {
+            font-weight: 600;
+            color: #0f766e;
+            margin-bottom: 0.3rem;
+        }
+        
+        .file-preview-size {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .file-preview-remove {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .file-preview-remove:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        .salary-input-wrapper {
+            position: relative;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 1.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0f766e;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .salary-input-wrapper input {
+            padding-left: 5rem;
+        }
+        
+        button[type="submit"] {
+            padding: 1.3rem;
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(15, 118, 110, 0.35);
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        button[type="submit"]:hover::before {
+            left: 100%;
+        }
+        
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.45);
+            background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+        }
+        
+        button[type="submit"]:active {
+            transform: translateY(-1px);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .form-footer p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .form-footer a {
+            color: #0f766e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+        }
+        
+        .form-footer a:hover {
+            color: #14b8a6;
+            background: rgba(15, 118, 110, 0.08);
+        }
+        
+        .input-hint {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .validation-icon {
+            display: none;
+            position: absolute;
+            right: 1.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .validation-icon.valid {
+            display: block;
+            color: #10b981;
+        }
+        
+        .validation-icon.invalid {
+            display: block;
+            color: #ef4444;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px);
+            }
+            75% {
+                transform: translateX(10px);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.4s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2.5rem 1.8rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .logo h1 {
+                font-size: 2.2rem;
+            }
+            .form-title h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Job<span>Finder</span></h1>
+            <p>Votre partenaire emploi au Cameroun</p>
+        </div>
+
+        <div class="form-title">
+            <h2>Créer un produit</h2>
+            <p>Proposez librement vos produis</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" id="offreForm">
+            {% csrf_token %}
+
+            <div class="form-group full-width">
+                <label for="titre">Nom du produit<span class="required">*</span></label>
+                <input type="text" id="titre" name="nom" placeholder="Ex:IPHONE 15 PRO 256G" required autocomplete="off">
+                <span class="validation-icon" id="titreIcon">✓</span>
+                <div class="input-hint">💡 Soyez précis sur le nom de votre produit</div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="description">Description du produit<span class="required">*</span></label>
+                <textarea id="description" name="description" placeholder="Décrivez toutes informations relative au produit" required></textarea>
+                <span class="char-counter" id="charCounter">0 / 500 caractères</span>
+                <div class="input-hint">📝 Une bonne description attire plus d'achéteur</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="salaire">Prix de vente<span class="required">*</span></label>
+                    <div class="salary-input-wrapper">
+                        <span class="currency-symbol">FCFA</span>
+                        <input type="number" id="salaire" name="prix" placeholder="" required min="0">
+                    </div>
+                    <span class="validation-icon" id="salaireIcon">✓</span>
+                </div>
+
+            </div>
+
+            <div class="form-group full-width">
+                <label for="ville">Localisation<span class="required">*</span></label>
+                <input type="text" id="ville" name="ville" placeholder="Ex: Douala, Yaoundé, Bafoussam..." required autocomplete="off">
+                <span class="validation-icon" id="villeIcon">✓</span>
+                <div class="input-hint">📍 Indiquez la ville ou la région</div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="image">Image du produit<span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                    <label for="image" class="file-upload-label" id="fileLabel">
+                        <span class="file-upload-icon">📁</span>
+                        <span id="fileLabelText">Cliquez pour importer une image</span>
+                    </label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="file-preview" id="filePreview">
+                    <img id="previewImage" src="" alt="Aperçu">
+                    <div class="file-preview-info">
+                        <div class="file-preview-name" id="fileName"></div>
+                        <div class="file-preview-size" id="fileSize"></div>
+                    </div>
+                    <button type="button" class="file-preview-remove" id="removeFile">Supprimer</button>
+                </div>
+                <div class="input-hint">🖼️ Format JPG, PNG (Max 5 MB)</div>
+            </div>
+
+            <button type="submit" id="submitBtn">
+                <span>✨ Publier le produit</span>
+            </button>
+        </form>
+
+        <div class="form-footer">
+            <p>Pour toute préocupation , contacter le créateur</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('offreForm');
+        const progressBar = document.getElementById('progressBar');
+        const titreInput = document.getElementById('titre');
+        const descriptionInput = document.getElementById('description');
+        const salaireInput = document.getElementById('salaire');
+        const villeInput = document.getElementById('ville');
+        const imageInput = document.getElementById('image');
+        const charCounter = document.getElementById('charCounter');
+        const fileLabel = document.getElementById('fileLabel');
+        const fileLabelText = document.getElementById('fileLabelText');
+        const filePreview = document.getElementById('filePreview');
+        const previewImage = document.getElementById('previewImage');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const removeFileBtn = document.getElementById('removeFile');
+
+        const requiredFields = [titreInput, descriptionInput, salaireInput, villeInput, imageInput];
+        let selectedFile = null;
+
+        function updateProgress() {
+            let filledFields = 0;
+            requiredFields.forEach(field => {
+                if (field.type === 'file') {
+                    if (selectedFile) filledFields++;
+                } else if (field.value.trim() !== '') {
+                    filledFields++;
+                }
+            });
+            const progress = (filledFields / requiredFields.length) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function validateField(input, iconId) {
+            const icon = document.getElementById(iconId);
+            if (input.value.trim() !== '' && input.checkValidity()) {
+                icon.classList.remove('invalid');
+                icon.classList.add('valid');
+                input.style.borderColor = '#10b981';
+            } else if (input.value.trim() !== '') {
+                icon.classList.remove('valid');
+                icon.classList.add('invalid');
+                input.style.borderColor = '#ef4444';
+            } else {
+                icon.classList.remove('valid', 'invalid');
+                input.style.borderColor = '#e2e8f0';
+            }
+        }
+
+        titreInput.addEventListener('input', () => {
+            validateField(titreInput, 'titreIcon');
+            updateProgress();
+        });
+
+        descriptionInput.addEventListener('input', function() {
+            const length = this.value.length;
+            const maxLength = 500;
+            charCounter.textContent = `${length} / ${maxLength} caractères`;
+
+            if (length > maxLength * 0.9) {
+                charCounter.classList.add('warning');
+            } else {
+                charCounter.classList.remove('warning');
+            }
+
+            if (length >= maxLength) {
+                charCounter.classList.add('danger');
+                this.value = this.value.substring(0, maxLength);
+            } else {
+                charCounter.classList.remove('danger');
+            }
+
+            updateProgress();
+        });
+
+        salaireInput.addEventListener('input', () => {
+            validateField(salaireInput, 'salaireIcon');
+            updateProgress();
+        });
+
+        villeInput.addEventListener('input', () => {
+            validateField(villeInput, 'villeIcon');
+            updateProgress();
+        });
+
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('⚠️ Le fichier est trop volumineux. Maximum 5 MB.');
+                    this.value = '';
+                    return;
+                }
+
+                if (!file.type.startsWith('image/')) {
+                    alert('⚠️ Veuillez sélectionner une image valide.');
+                    this.value = '';
+                    return;
+                }
+
+                selectedFile = file;
+                fileLabel.classList.add('has-file');
+                fileLabelText.textContent = '✓ Image sélectionnée';
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    fileName.textContent = file.name;
+                    fileSize.textContent = (file.size / 1024).toFixed(1) + ' KB';
+                    filePreview.classList.add('show');
+                };
+                reader.readAsDataURL(file);
+
+                updateProgress();
+            }
+        });
+
+        removeFileBtn.addEventListener('click', function() {
+            imageInput.value = '';
+            selectedFile = null;
+            fileLabel.classList.remove('has-file');
+            fileLabelText.textContent = 'Cliquez pour importer une image';
+            filePreview.classList.remove('show');
+            updateProgress();
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+            requiredFields.forEach(field => {
+                if (field.type === 'file') {
+                    if (!selectedFile) {
+                        isValid = false;
+                        fileLabel.classList.add('shake');
+                        setTimeout(() => fileLabel.classList.remove('shake'), 400);
+                    }
+                } else if (field.value.trim() === '' || !field.checkValidity()) {
+                    isValid = false;
+                    field.classList.add('shake');
+                    field.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        field.classList.remove('shake');
+                    }, 400);
+                }
+            });
+
+            if (isValid) {
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.innerHTML = '<span>⏳ Publication en cours...</span>';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    this.submit();
+                }, 500);
+            } else {
+                alert('⚠️ Veuillez remplir tous les champs requis correctement.');
+            }
+        });
+
+        requiredFields.forEach(field => {
+            field.addEventListener('blur', () => {
+                if (field.value.trim() !== '') {
+                    field.style.borderColor = field.checkValidity() ? '#10b981' : '#ef4444';
+                }
+            });
+
+            field.addEventListener('focus', () => {
+                field.style.borderColor = '#0f766e';
+            });
+        });
+
+        updateProgress();
+    </script>
+</body>
+
+</html>

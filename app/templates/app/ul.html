@@ -1,0 +1,16 @@
+<ul class="navbar-links">
+    <li><a href="{% url 'accueil' %}"><i class="ri-home-4-line"></i> Accueil</a></li>
+    <li><a href="{% url 'profil' %}"><i class="ri-user-3-line"></i> Mon profil</a></li>
+    <li><a href="{% url 'cv' %}"><i class="ri-profile-line"></i> Consulter les CV</a></li>
+    <li><a href="{% url 'produit' %}"><i class="ri-box-3-line"></i> Produits</a></li>
+    <li><a href="{% url 'user_list' %}"><i class="ri-chat-3-line"></i> Discussions</a></li>
+    <li><a href="{% url 'notification' %}"><i class="ri-notification-3-line"></i> Notifications</a></li>
+    <!-- <li><a href="{% url 'creation_offre' %}"><i class="ri-add-box-line"></i> Créer une offre</a></li> -->
+    <!-- <li><a href="{% url 'creation_produit' %}"><i class="ri-add-circle-line"></i> Créer un produit</a></li> -->
+    {% if user.is_staff %}
+    <li><a href="{% url 'notif_all' %}"><i class="ri-shield-user-line"></i> Option des superusers</a></li>
+    {% else %}
+    <li><a href="{% url 'discussion' user_id=1 %}"><i class="ri-message-3-line"></i> Contacter le créateur</a></li>
+    {% endif %}
+    <li class="logout"><a href="{% url 'deconnexion' %}"><i class="ri-logout-circle-line"></i> Déconnexion</a></li>
+</ul>
