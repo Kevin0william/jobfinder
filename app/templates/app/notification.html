@@ -235,6 +235,30 @@
             color: #2563eb;
         }
         
+        .date-separator {
+            margin: 2rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .date-separator::before,
+        .date-separator::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        }
+        
+        .date-separator i {
+            color: #94a3b8;
+        }
+        
         .btn {
             padding: 0.7rem 1.5rem;
             border: none;
@@ -286,9 +310,7 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+            position: relative;
         }
         
         .notif:hover {
@@ -300,12 +322,23 @@
             border-left: 4px solid #2563eb;
         }
         
+        .notif-user.read {
+            background: #f8fafc;
+            border-left-color: #94a3b8;
+            opacity: 0.85;
+        }
+        
+        .notif-user.read:hover {
+            opacity: 1;
+        }
+        
         .notif-admin {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            border: 2px solid #f59e0b;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            border: none;
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.4);
             position: relative;
             overflow: hidden;
+            padding: 2rem;
         }
         
         .notif-admin::before {
@@ -315,102 +348,206 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #f59e0b, #eab308, #f59e0b);
-            animation: shimmer 2s infinite;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24, #eab308, #fbbf24, #f59e0b);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        .notif-admin::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         @keyframes shimmer {
-            0%,
-            100% {
-                opacity: 1;
+            0% {
+                background-position: -200% 0;
             }
-            50% {
-                opacity: 0.6;
+            100% {
+                background-position: 200% 0;
             }
         }
         
         .notif-header {
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-        
-        .notif-user .notif-header {
-            color: #475569;
-        }
-        
-        .notif-admin .notif-header {
-            color: #fbbf24;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
         
         .notif-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             flex-shrink: 0;
+            transition: all 0.3s ease;
         }
         
         .notif-user .notif-icon {
-            background: #dbeafe;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
             color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        
+        .notif-user.read .notif-icon {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: #64748b;
+            box-shadow: none;
         }
         
         .notif-admin .notif-icon {
-            background: #fef3c7;
-            color: #f59e0b;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        .notif-info {
+            flex: 1;
+        }
+        
+        .notif-sender-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.3rem;
         }
         
         .notif-sender {
             font-weight: 700;
+            font-size: 1.05rem;
             color: #1e293b;
+        }
+        
+        .notif-user.read .notif-sender {
+            color: #64748b;
         }
         
         .notif-admin .notif-sender {
             color: #fbbf24;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 1.1rem;
+        }
+        
+        .read-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #10b981;
+            color: #ffffff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .notif-type {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .notif-user.read .notif-type {
+            color: #94a3b8;
+        }
+        
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #78350f;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
         
         .notif-content {
-            padding-left: 3rem;
-        }
-        
-        .notif-user .notif-content {
-            color: #1e293b;
-        }
-        
-        .notif-admin .notif-content {
-            color: #f1f5f9;
+            margin-top: 1rem;
         }
         
         .notif-message {
-            margin: 0.5rem 0;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .notif-user .notif-message {
+            color: #334155;
+        }
+        
+        .notif-user.read .notif-message {
+            color: #64748b;
+        }
+        
+        .notif-admin .notif-message {
+            color: #e2e8f0;
+            font-size: 1rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
         }
         
         .notif-message strong {
             font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
         }
         
         .notif-user .notif-message strong {
+            color: #1e293b;
+        }
+        
+        .notif-user.read .notif-message strong {
             color: #475569;
         }
         
         .notif-admin .notif-message strong {
             color: #fbbf24;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        
+        .notif-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .notif-user.read .notif-footer {
+            border-top-color: #e2e8f0;
+        }
+        
+        .notif-admin .notif-footer {
+            border-top-color: rgba(241, 245, 249, 0.1);
+            position: relative;
+            z-index: 1;
         }
         
         .notif-date {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #94a3b8;
             display: flex;
             align-items: center;
             gap: 0.4rem;
+            font-weight: 500;
         }
         
         .notif-admin .notif-date {
@@ -418,22 +555,30 @@
         }
         
         .notif-actions {
-            padding-left: 3rem;
-            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
         }
         
-        .admin-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: #fef3c7;
-            color: #92400e;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .unread-indicator {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #2563eb;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.1);
+            }
         }
         
         li {
@@ -462,9 +607,23 @@
             .page-title {
                 font-size: 1.5rem;
             }
-            .notif-content,
-            .notif-actions {
-                padding-left: 0;
+            .notif {
+                padding: 1.2rem;
+            }
+            .notif-admin {
+                padding: 1.5rem;
+            }
+            .notif-header {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .notif-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .date-separator {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -496,52 +655,70 @@
             <i class="ri-notification-3-line"></i> Vos Notifications
         </h2>
 
-        {% if notifications %} {% for notif in notifications %} {% if notif.envoyeur.is_staff == False %}
-        <div class="notif notif-user">
-            <div class="notif-header">
-                <div class="notif-icon">
-                    <i class="ri-user-line"></i>
-                </div>
-                <div>
-                    Nouveau message de <strong class="notif-sender">{{notif.envoyeur.username}}</strong>
-                </div>
+        {% if notifications %}
+        <div id="notificationsContainer">
+            {% regroup notifications|dictsort:"date" by date|date:"Y-m-d" as notifications_by_date %} {% for date_group in notifications_by_date reversed %}
+            <div class="date-separator">
+                <i class="ri-calendar-line"></i>
+                <span class="date-label" data-date="{{ date_group.grouper }}">{{ date_group.grouper }}</span>
             </div>
-            <div class="notif-content">
-                <div class="notif-message">
-                    <strong>Message :</strong> {{notif.message}}
+            {% for notif in date_group.list reversed %} {% if notif.envoyeur.is_staff %}
+            <div class="notif notif-admin" data-id="{{ notif.id }}">
+                <div class="notif-header">
+                    <div class="notif-icon">
+                        <i class="ri-megaphone-line"></i>
+                    </div>
+                    <div class="notif-info">
+                        <div class="admin-badge">
+                            <i class="ri-shield-star-line"></i> Communiqué Officiel
+                        </div>
+                    </div>
                 </div>
-                <div class="notif-date">
-                    <i class="ri-time-line"></i> {{notif.date|date:"d/m/Y à H:i"}}
+                <div class="notif-content">
+                    <div class="notif-message">
+                        <strong>Message de l'équipe Job<span style="color: #ffffff;">Finder</span> :</strong> {{ notif.message }}
+                    </div>
                 </div>
-            </div>
-            <div class="notif-actions">
-                <a class="btn btn-primary" href="{% url 'discussion' user_id=notif.envoyeur.id %}">
-                    <i class="ri-message-2-line"></i> Répondre
-                </a>
-            </div>
-        </div>
-        {% else %}
-        <div class="notif notif-admin">
-            <div class="notif-header">
-                <div class="notif-icon">
-                    <i class="ri-megaphone-line"></i>
-                </div>
-                <div>
-                    <div class="admin-badge">
-                        <i class="ri-shield-star-line"></i> Communiqué Officiel
+                <div class="notif-footer">
+                    <div class="notif-date">
+                        <i class="ri-calendar-line"></i> {{ notif.date|date:"d/m/Y à H:i" }}
                     </div>
                 </div>
             </div>
-            <div class="notif-content">
-                <div class="notif-message">
-                    <strong>Message de l'équipe Job<span style="color: #ffffff;">Finder</span> :</strong><br> {{notif.message}}
+            {% else %}
+            <div class="notif notif-user" data-id="{{ notif.id }}">
+                <div class="unread-indicator" style="display: none;"></div>
+                <div class="notif-header">
+                    <div class="notif-icon">
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <div class="notif-info">
+                        <div class="notif-sender-row">
+                            <span class="notif-sender">{{ notif.envoyeur.username }}</span>
+                            <span class="read-badge" style="display: none;"><i class="ri-check-double-line"></i> Lu</span>
+                        </div>
+                        <div class="notif-type">Nouveau message</div>
+                    </div>
                 </div>
-                <div class="notif-date">
-                    <i class="ri-calendar-line"></i> {{notif.date|date:"d/m/Y à H:i"}}
+                <div class="notif-content">
+                    <div class="notif-message">
+                        <strong>Message :</strong> {{ notif.message }}
+                    </div>
+                </div>
+                <div class="notif-footer">
+                    <div class="notif-date">
+                        <i class="ri-time-line"></i> {{ notif.date|date:"d/m/Y à H:i" }}
+                    </div>
+                    <div class="notif-actions">
+                        <a class="btn btn-primary" href="{% url 'discussion' user_id=notif.envoyeur.id %}" data-id="{{ notif.id }}" onclick="handleReply(this.dataset.id)">
+                            <i class="ri-message-2-line"></i> Répondre
+                        </a>
+                    </div>
                 </div>
             </div>
+            {% endif %} {% endfor %} {% endfor %}
         </div>
-        {% endif %} {% endfor %} {% else %}
+        {% else %}
         <div class="no-notif">
             <i class="ri-notification-off-line"></i>
             <p>Aucune notification présente pour le moment</p>
@@ -571,6 +748,75 @@
 
         navbarLinks.forEach(link => {
             link.addEventListener('click', closeNavbar);
+        });
+
+        const readNotifications = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+
+        function formatDateLabel(dateStr) {
+            const parts = dateStr.split('-');
+            const date = new Date(parts[0], parts[1] - 1, parts[2]);
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            if (date.getTime() === today.getTime()) {
+                return 'Aujourd\'hui';
+            } else if (date.getTime() === yesterday.getTime()) {
+                return 'Hier';
+            } else {
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+        }
+
+        function updateDateLabels() {
+            const dateLabels = document.querySelectorAll('.date-label');
+            dateLabels.forEach(label => {
+                const dateStr = label.getAttribute('data-date');
+                label.textContent = formatDateLabel(dateStr);
+            });
+        }
+
+        function isRead(notifId) {
+            return readNotifications.includes(notifId);
+        }
+
+        function markAsRead(notifId) {
+            if (!readNotifications.includes(notifId)) {
+                readNotifications.push(notifId);
+                localStorage.setItem('readNotifications', JSON.stringify(readNotifications));
+            }
+        }
+
+        function updateNotificationStatus() {
+            const userNotifs = document.querySelectorAll('.notif-user');
+            userNotifs.forEach(notif => {
+                const notifId = parseInt(notif.getAttribute('data-id'));
+                const unreadIndicator = notif.querySelector('.unread-indicator');
+                const readBadge = notif.querySelector('.read-badge');
+
+                if (isRead(notifId)) {
+                    notif.classList.add('read');
+                    if (unreadIndicator) unreadIndicator.style.display = 'none';
+                    if (readBadge) readBadge.style.display = 'inline-flex';
+                } else {
+                    notif.classList.remove('read');
+                    if (unreadIndicator) unreadIndicator.style.display = 'block';
+                    if (readBadge) readBadge.style.display = 'none';
+                }
+            });
+        }
+
+        function handleReply(notifId) {
+            markAsRead(notifId);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            updateDateLabels();
+            updateNotificationStatus();
         });
     </script>
 </body>
