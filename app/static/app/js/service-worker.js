@@ -1,10 +1,10 @@
 const CACHE_NAME = "jobfinder-cache-v1";
 const urlsToCache = [
   "/", // ta page d'accueil
-  "/static/app/css/style.css",
-  "/static/app/js/main.js",
-  "/static/app/icons/icon-192x192.png",
-  "/static/app/icons/icon-512x512.png",
+  // "/static/app/css/style.css",
+  // "/static/app/js/main.js",
+  // "/static/app/icons/icon-192x192.png",
+  // "/static/app/icons/icon-512x512.png",
 ];
 
 // Installation du service worker
