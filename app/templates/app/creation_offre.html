@@ -547,13 +547,13 @@
             </div>
 
             <div class="form-group full-width">
-                <label for="image">Image de l'offre<span class="required">*</span></label>
+                <label for="image">Image de l'offre<span class="required">***optionnel</span></label>
                 <div class="file-upload-wrapper">
                     <label for="image" class="file-upload-label" id="fileLabel">
                         <span class="file-upload-icon">📁</span>
                         <span id="fileLabelText">Cliquez pour importer une image</span>
                     </label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <input type="file" id="image" name="image" accept="image/*">
                 </div>
                 <div class="file-preview" id="filePreview">
                     <img id="previewImage" src="" alt="Aperçu">
@@ -593,7 +593,7 @@
         const fileSize = document.getElementById('fileSize');
         const removeFileBtn = document.getElementById('removeFile');
 
-        const requiredFields = [titreInput, descriptionInput, salaireInput, villeInput, imageInput];
+        const requiredFields = [titreInput, descriptionInput, salaireInput, villeInput];
         let selectedFile = null;
 
         function updateProgress() {
