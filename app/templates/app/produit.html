@@ -478,7 +478,7 @@
         <div class="produits-grid">
             {% for produit in produits %}
             <div class="produit-card">
-                <div class="produit-image">
+                <div class="produit-image" style="background:#1e293b;">
                     {% if produit.image %}
                     <img src="{{ produit.image.url }}" alt="{{ produit.nom }}"> {% else %}
                     <div class="no-image">📷</div>
