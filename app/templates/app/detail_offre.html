@@ -239,6 +239,9 @@
             height: 400px;
             overflow: hidden;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display:flex;
+            justify-content:center;
+            align-items:center;
         }
         
         .offer-header img {
@@ -602,7 +605,10 @@
     <div class="container">
         <main>
             <div class="offer-header">
+                {% if offre.image %}
                 <img src="{{offre.image.url}}" alt="{{offre.titre}}">
+                {% else %}
+                <div> 🙅  </div>
             </div>
 
             <div class="offer-content">
