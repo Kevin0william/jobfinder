@@ -479,9 +479,9 @@
         <div class="offres-grid">
             {% for offre in offres %}
             <div class="offre-card">
-                <div class="offre-image">
+                <div class="offre-image" style="background:#1e293b;">
                     {% if offre.image %}
-                    <img style="background:#1e293b;" src="{{ offre.image.url }}" alt="{{ offre.titre }}"> {% else %}
+                    <img src="{{ offre.image.url }}" alt="{{ offre.titre }}"> {% else %}
                     <div class="no-image">📷</div>
                     {% endif %}
                 </div>
