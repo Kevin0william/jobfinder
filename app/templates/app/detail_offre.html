@@ -608,7 +608,7 @@
                 {% if offre.image %}
                 <img src="{{offre.image.url}}" alt="{{offre.titre}}">
                 {% else %}
-                <div> 🙅  </div>
+                <div> 📷  </div>
                 {% endif %}
             </div>
 
@@ -658,9 +658,9 @@
                 {% if offre.createur != request.user %}
                 <div class="apply-section">
                     <h3>Intéressé par cette offre?</h3>
-                    <p>Postulez maintenant et contactez directement le créateur de l'offre</p>
+                    <p>Contactez le creation de cette offre maintenant pour obtenir encore plus de detail si la description n'a pas suffit</p>
                     <form action="{% url 'discussion' user_id=offre.createur.id %}" method="get" class="apply-form">
-                        <input type="hidden" value="Demande d'offre Salut, je suis très intéressé(e) par votre offre '{{offre.titre}}'. Est-elle toujours disponible? J'aimerais en savoir plus sur les modalités et discuter des détails avec vous. Merci!" name="contenue">
+                        <input type="hidden" value="Salut, je suis très intéressé(e) par votre offre '{{offre.titre}}'. Est-elle toujours disponible? J'aimerais en savoir plus et discuter des détails avec vous. Merci!" name="contenue">
                         <button type="submit" class="apply-button">
                             <span class="icon">✉️</span>
                             <span>Postuler maintenant</span>
