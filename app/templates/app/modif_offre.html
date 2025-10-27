@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier un produit - JobFinder</title>
+    <title>Modifier une offre - JobFinder</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -491,8 +491,8 @@
         </div>
 
         <div class="form-title">
-            <h2>Créer un produit</h2>
-            <p>Proposez librement vos produis</p>
+            <h2>Modifier l'offre</h2>
+            <p>Apportez les modifications nécessaire </p>
         </div>
 
         <div class="progress-bar">
@@ -503,15 +503,15 @@
             {% csrf_token %}
 
             <div class="form-group full-width">
-                <label for="titre">Nom du produit<span class="required">*</span></label>
-                <input type="text" id="titre" name="nom" placeholder="Ex:IPHONE 15 PRO 256G" required autocomplete="off">
+                <label for="titre">Nom de l'offre<span class="required">*</span></label>
+                <input type="text" id="titre" name="titre" placeholder="Ex:IPHONE 15 PRO 256G" required autocomplete="off" value="{{ offre.titre }}>
                 <span class="validation-icon" id="titreIcon">✓</span>
                 <div class="input-hint">💡 Soyez précis sur le nom de votre produit</div>
             </div>
 
             <div class="form-group full-width">
                 <label for="description">Description du produit<span class="required">*</span></label>
-                <textarea id="description" name="description" placeholder="Décrivez toutes informations relative au produit" required></textarea>
+                <textarea id="description" name="description" placeholder="Décrivez toutes informations relative au produit" required> {{ offre.description }} </textarea>
                 <span class="char-counter" id="charCounter">0 / 500 caractères</span>
                 <div class="input-hint">📝 Une bonne description attire plus d'achéteur</div>
             </div>
@@ -521,7 +521,7 @@
                     <label for="salaire">Prix d'achat<span class="required">*</span></label>
                     <div class="salary-input-wrapper">
                         <span class="currency-symbol">FCFA</span>
-                        <input type="number" id="salaire" name="prix" placeholder="" required min="0">
+                        <input type="number" id="salaire" name="prix" placeholder="" required min="0" value=" {{ offre.salaire }} ">
                     </div>
                     <span class="validation-icon" id="salaireIcon">✓</span>
                 </div>
@@ -530,7 +530,7 @@
 
             <div class="form-group full-width">
                 <label for="ville">Localisation<span class="required">*</span></label>
-                <input type="text" id="ville" name="ville" placeholder="Ex: Douala, Yaoundé, Bafoussam..." required autocomplete="off">
+                <input type="text" id="ville" name="ville" placeholder="Ex: Douala, Yaoundé, Bafoussam..." required autocomplete="off" value=" {{ offre.ville }} ">
                 <span class="validation-icon" id="villeIcon">✓</span>
                 <div class="input-hint">📍 Indiquez la ville ou la région</div>
             </div>
@@ -542,7 +542,7 @@
                         <span class="file-upload-icon">📁</span>
                         <span id="fileLabelText">Cliquez pour importer une image</span>
                     </label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <input type="file" id="image" name="image" accept="image/*">
                 </div>
                 <div class="file-preview" id="filePreview">
                     <img id="previewImage" src="" alt="Aperçu">
@@ -556,7 +556,7 @@
             </div>
 
             <button type="submit" id="submitBtn">
-                <span>✨ Publier le produit</span>
+                <span>✨ Modification de l'offre</span>
             </button>
         </form>
 
