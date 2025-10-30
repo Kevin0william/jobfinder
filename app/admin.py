@@ -32,6 +32,6 @@ class AdminCv(admin.ModelAdmin):
 admin.site.register(Cv,AdminCv)
 
 class BoostAdmin(admin.ModelAdmin):
-    list_display=('Createur','nom','lien','suivre','boost_id')
+    list_display=('createur','nom','lien','suivre')
 
 admin.site.register(Boost,BoostAdmin)
