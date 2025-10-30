@@ -259,7 +259,6 @@ def add_page(request):
         createur = request.user
         nom = request.POST.get('nom')
         lien = request.POST.get('lien')
-        suivre = False
         if Boost.objects.filter(lien=lien):
             messages.error(request,'Une page a deja ete presenter avec ce lien')
         else:
@@ -267,7 +266,6 @@ def add_page(request):
                 createur=createur,
                 nom=nom,
                 lien=lien,
-                suivre=suivre
             )
             return redirect('boost_page')
     return render(request,'app/add_page.html')
