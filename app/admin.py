@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Message,Offre,Produit,Notification,Cv,Boost
+from .models import Message,Offre,Produit,Notification,Cv,Boost,suivi
 # Register your models here.
 
 class OffreAdmin(admin.ModelAdmin):
@@ -35,3 +35,8 @@ class BoostAdmin(admin.ModelAdmin):
     list_display=('createur','nom','lien')
 
 admin.site.register(Boost,BoostAdmin)
+
+class suiviAdmin(admin.ModelAdmin):
+    list_display=('user','boost','date')
+
+admin.site.register(suivi,suiviAdmin)
