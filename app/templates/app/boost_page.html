@@ -416,13 +416,20 @@
                 <p>{{ page.nom }}</p>
             </div>
             <div class="page-footer">
-                {% if not page.suivre %}
+                <!-- {% if not page.suivre %}
                 <form action="{% url 'suivre' page.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit">Suivre</button>
                 </form>
                 {% else %}
-                <a href="{{ page.lien }}" target="_blank">Suivie</a> {% endif %}
+                <a href="{{ page.lien }}" target="_blank">Suivie</a> {% endif %} -->
+                {% if page.id in suivis %}
+                <a href="{{ page.lien }}" target="_blank">Suivie</a> {% else %}
+                <form action="{% url 'suivre' page.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Suivre</button>
+                </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

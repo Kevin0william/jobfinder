@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Offre,Message,Produit,Notification,Cv,Boost
+from .models import Offre,Message,Produit,Notification,Cv,Boost,suivi
 # Create your views here.
 
 
@@ -274,10 +274,10 @@ def add_page(request):
 
 def boost_page(request):
     pages = Boost.objects.all()
-    return render(request,'app/boost_page.html',{'pages':pages})
+    suivis = suivi.objects.filter(user=request.user).values_list('boost_id',flat=True)
+    return render(request,'app/boost_page.html',{'pages':pages,'suivis':suivis})
 
 def suivre(request,id):
     page = get_object_or_404(Boost,id=id)
-    page.suivre=True
-    page.save()
-    return redirect(page.lien)
+    suivi.objects.get_or_create(user=request.user,boost=page)
+    return redirect('boost_page')

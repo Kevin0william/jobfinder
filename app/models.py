@@ -72,4 +72,12 @@ class Boost(models.Model):
     createur = models.ForeignKey(User,on_delete=models.CASCADE)
     nom = models.CharField(max_length=150)
     lien = models.URLField(unique=True)
-    suivre = models.BooleanField(default=False)
+    
+
+class suivi(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    boost = models.ForeignKey(Boost,on_delete=models.CASCADE)
+    date= models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        unique_together = ('user','boost')
