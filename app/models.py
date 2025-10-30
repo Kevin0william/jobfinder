@@ -66,3 +66,10 @@ class Cv(models.Model):
     ville = models.CharField(max_length=100,null=True)
     image = models.ImageField(upload_to='offres/images/',blank=True,null=True)
     date= models.DateTimeField(default=timezone.now)
+
+
+class Boost(models.Model):
+    createur = models.ForeignKey(User,on_delete=models.CASCADE)
+    nom = models.CharField(max_length=150)
+    lien = models.URLField(unique=True)
+    suivre = models.BooleanField(default=False)

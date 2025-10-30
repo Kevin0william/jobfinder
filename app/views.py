@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Offre,Message,Produit,Notification,Cv
+from .models import Offre,Message,Produit,Notification,Cv,Boost
 # Create your views here.
 
 
@@ -252,3 +252,32 @@ def notif_all(request):
             Notification.objects.create(user=user,envoyeur=envoyeur,message=message)
         return redirect('accueil')
     return render(request,'app/notif_all.html')
+
+
+def add_page(request):
+    if request.method == 'POST':
+        createur = request.user
+        nom = request.POST.get('nom')
+        lien = request.POST.get('lien')
+        suivre = False
+        if Boost.objects.filter(lien=lien):
+            messages.error(request,'Une page a deja ete presenter avec ce lien')
+        else:
+            Boost.objects.create(
+                createur=createur,
+                nom=nom,
+                lien=lien,
+                suivre=suivre
+            )
+            return redirect('boost_page')
+    return render(request,'app/add_page.html')
+
+def boost_page(request):
+    pages = Boost.objects.all()
+    return render(request,'app/boost_page.html',{'pages':pages})
+
+def suivre(request,id):
+    page = get_object_or_404(Boost,id=id)
+    page.suivre=True
+    page.save()
+    return redirect(page.lien)

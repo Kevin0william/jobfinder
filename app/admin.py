@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Message,Offre,Produit,Notification,Cv
+from .models import Message,Offre,Produit,Notification,Cv,Boost
 # Register your models here.
 
 class OffreAdmin(admin.ModelAdmin):
@@ -30,3 +30,8 @@ class AdminCv(admin.ModelAdmin):
     search_fields=['createur__username','competence']
 
 admin.site.register(Cv,AdminCv)
+
+class BoostAdmin(admin.ModelAdmin):
+    list_display=('Createur','nom','lien','suivre','boost_id')
+
+admin.site.register(Boost,BoostAdmin)
