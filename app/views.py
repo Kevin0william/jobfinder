@@ -278,4 +278,4 @@ def boost_page(request):
 def suivre(request,id):
     page = get_object_or_404(Boost,id=id)
     suivi.objects.get_or_create(user=request.user,boost=page)
-    return redirect('boost_page')
+    return redirect(page.lien)
