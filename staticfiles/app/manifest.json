@@ -19,7 +19,7 @@
             "type": "image/jpeg"
         },
         {
-            "src": "/static/app/icons/3.jpeg",
+            "src": "/static/app/icons/2.jpeg",
             "sizes": "512x512",
             "type": "image/jpeg",
             "purpose": "maskable"
