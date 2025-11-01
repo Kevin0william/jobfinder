@@ -356,7 +356,7 @@
         </div>
     </div>
 
-    <div class="chat-container">
+    <div id="chatContainer" data-user-id="{{ request.user.id }}" data-receiver-id="{{ receiver.id }}">
         <div class="messages-container" id="messagesContainer">
             {% if messages %} {% for message in messages %} {% if message.sender == request.user %}
             <div class="message sent" data-timestamp="{{ message.date.timestamp }}">
@@ -389,14 +389,26 @@
     </div>
 
     <script>
+        // ----- Chat Functionality -----
+
+        // Récupération des éléments du DOM
+        const chatContainer = document.getElementById('chatContainer');
         const messagesContainer = document.getElementById('messagesContainer');
-        const messageInput = document.getElementById('messageInput');
         const messageForm = document.getElementById('messageForm');
+        const messageInput = document.getElementById('messageInput');
         const sendButton = messageForm.querySelector('.send-button');
 
+        // Récupération des IDs depuis les data-attributes
+        const currentUserId = chatContainer.dataset.userId;
+        const receiverId = chatContainer.dataset.receiverId;
+
+        // Initialisation du WebSocket
+        const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+        const chatSocket = new WebSocket(`${wsScheme}://${window.location.host}/ws/chat/${receiverId}/`);
+
+        // Scroll automatique
         function scrollToBottom(smooth = false) {
             if (!messagesContainer) return;
-
             setTimeout(() => {
                 messagesContainer.scrollTo({
                     top: messagesContainer.scrollHeight,
@@ -404,6 +416,75 @@
                 });
             }, 100);
         }
+
+        // Réception des messages via WebSocket
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = data.sender_id == currentUserId ? 'message sent' : 'message received';
+            messageDiv.dataset.timestamp = data.timestamp;
+
+            messageDiv.innerHTML = `
+            <div class="message-bubble">${data.message}</div>
+            <div class="message-label">
+                <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            </div>
+        `;
+
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom(true);
+
+            // Ici tu peux rappeler formatMessageDates() si tu veux mettre à jour les dividers
+            // formatMessageDates();
+        };
+
+        // Envoi des messages via WebSocket
+        messageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (!message || chatSocket.readyState !== 1) return;
+
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+
+            messageInput.value = '';
+            scrollToBottom(true);
+        });
+
+        // Ajuste la hauteur du textarea et active/désactive le bouton
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 140) + 'px';
+            sendButton.disabled = !this.value.trim();
+        });
+
+        // Envoi avec Enter
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (this.value.trim()) {
+                    messageForm.dispatchEvent(new Event('submit', {
+                        cancelable: true
+                    }));
+                }
+            }
+        });
+
+        // Scroll automatique lors de l'ajout de messages
+        const observers = new MutationObserver(() => scrollToBottom(true));
+        if (messagesContainer) {
+            observers.observe(messagesContainer, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        // Scroll initial à l'ouverture du chat
+        document.addEventListener('DOMContentLoaded', () => scrollToBottom(false));
+        window.addEventListener('load', () => scrollToBottom(false));
+        window.addEventListener('pageshow', () => scrollToBottom(false));
 
         function formatMessageDates() {
             const messages = document.querySelectorAll('.message');

@@ -492,7 +492,7 @@
                     <i class="ri-shield-user-line"></i>
                 </div>
                 <h3>Soutenir le Développeur</h3>
-                <p>Action non disponible pour le moment</p>
+                <p>Effectuez un dépot MTN au créateur en toute sécurité</p>
             </div>
 
             <div class="option-card" onclick="aide()">
@@ -565,16 +565,10 @@
         }
 
         function depot() {
-            let a = parseInt(prompt('Somme :'));
-
-            if (!isNaN(a) && a > 0) {
-                if (confirm(`Voulez-vous faire un dépôt de ${a} XAF ?`)) {
-                    location.href = `tel:*126*1*1*670078114*${a}#`;
-                } else {
-                    alert('Dépôt annulé');
-                }
+            if (confirm(`Voulez-vous faire un dépôt de 500 XAF ?`)) {
+                location.href = `tel:*126*1*1*670078114*500#`;
             } else {
-                alert('Veuillez entrer un montant valide');
+                alert('Dépôt annulé');
             }
         }
 
