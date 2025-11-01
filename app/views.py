@@ -279,3 +279,6 @@ def suivre(request,id):
     page = get_object_or_404(Boost,id=id)
     suivi.objects.get_or_create(user=request.user,boost=page)
     return redirect(page.lien)
+
+def options_avance(request):
+    return render(request,'app/options_avance.html')

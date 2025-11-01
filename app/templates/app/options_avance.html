@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Avancées - JobFinder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            color: #1e3a8a;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            padding: 20px 24px;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header a {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+        
+        header a:hover {
+            transform: translateX(-4px);
+        }
+        
+        header i {
+            font-size: 24px;
+        }
+        
+        header h2 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 16px;
+        }
+        
+        .profile-card {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px rgba(0, 102, 255, 0.2);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 102, 255, 0.3);
+        }
+        
+        .profile-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .profile-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .profile-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .profile-info p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0066ff;
+            margin-bottom: 16px;
+            padding-left: 8px;
+            border-left: 4px solid #0066ff;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .option-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 102, 255, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0066ff 0%, #00b4ff 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .option-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 102, 255, 0.15);
+            border-color: #0066ff;
+        }
+        
+        .option-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #0066ff;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover .option-icon {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            color: #fff;
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .option-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        
+        .option-card p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+        
+        .danger-card {
+            border-color: #fee2e2;
+        }
+        
+        .danger-card .option-icon {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #dc2626;
+        }
+        
+        .danger-card:hover {
+            border-color: #dc2626;
+        }
+        
+        .danger-card:hover .option-icon {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: #fff;
+        }
+        
+        .danger-card h3 {
+            color: #dc2626;
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: #fff;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .modal p {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .modal-options {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .modal-option {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #bfdbfe;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .modal-option:hover {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            border-color: #0066ff;
+            transform: scale(1.02);
+        }
+        
+        .modal-option i {
+            font-size: 32px;
+            color: #0066ff;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-option:hover i {
+            color: #fff;
+        }
+        
+        .modal-option-text h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-option:hover .modal-option-text h4 {
+            color: #fff;
+        }
+        
+        .modal-option-text p {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+            text-align: left;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-option:hover .modal-option-text p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .modal-close {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: #e2e8f0;
+            color: #1e3a8a;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+            header h2 {
+                font-size: 18px;
+            }
+            main {
+                padding: 24px 12px;
+            }
+            .profile-card {
+                padding: 24px;
+                border-radius: 16px;
+            }
+            .profile-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+            .profile-info h3 {
+                font-size: 20px;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .option-card {
+                padding: 20px;
+            }
+            .section-title {
+                font-size: 16px;
+            }
+            .modal {
+                padding: 24px;
+                width: 95%;
+            }
+            .modal h3 {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .option-card h3 {
+                font-size: 16px;
+            }
+            .option-card p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="{% url 'accueil' %}">
+            <i class="ri-arrow-left-line"></i>
+        </a>
+        <h2>Options Avancées</h2>
+    </header>
+
+    <main>
+        <a href="{% url 'profil' %}">
+            <div class="profile-card">
+                <div class="profile-content">
+                    <div class="profile-icon">
+                        <i class="ri-user-3-line"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3>{{user.username}}</h3>
+                        <p>{{user.email}}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <h2 class="section-title">Actions Principales</h2>
+        <div class="options-grid">
+            <div class="option-card" onclick="openCreationModal()">
+                <div class="option-icon">
+                    <i class="ri-add-circle-line"></i>
+                </div>
+                <h3>Création</h3>
+                <p>Créer une offre d'emploi ou un produit</p>
+            </div>
+
+            <a href="{% url 'add_page' %}">
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="ri-rocket-line"></i>
+                    </div>
+                    <h3>Boost</h3>
+                    <p>Booster votre page Facebook pour plus de visibilité</p>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="section-title">Support & Aide</h2>
+        <div class="options-grid">
+            <div class="option-card" onclick="depot()">
+                <div class="option-icon">
+                    <i class="ri-shield-user-line"></i>
+                </div>
+                <h3>Soutenir le Développeur</h3>
+                <p>Action non disponible pour le moment</p>
+            </div>
+
+            <div class="option-card" onclick="aide()">
+                <div class="option-icon">
+                    <i class="ri-information-line"></i>
+                </div>
+                <h3>Aide</h3>
+                <p>Contacter le créateur pour recevoir de l'aide</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Compte</h2>
+        <div class="options-grid">
+            <a href="{% url 'deconnexion' %}">
+                <div class="option-card danger-card">
+                    <div class="option-icon">
+                        <i class="ri-logout-circle-line"></i>
+                    </div>
+                    <h3>Déconnexion</h3>
+                    <p>Se déconnecter de ce compte</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="creationModal" onclick="closeModalOnOverlay(event)">
+        <div class="modal">
+            <h3>Que souhaitez-vous créer ?</h3>
+            <p>Choisissez le type de contenu que vous souhaitez ajouter</p>
+
+            <div class="modal-options">
+                <a href="{% url 'creation_offre' %}">
+                    <div class="modal-option">
+                        <i class="ri-briefcase-line"></i>
+                        <div class="modal-option-text">
+                            <h4>Offre d'Emploi</h4>
+                            <p>Publier une nouvelle opportunité professionnelle</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{% url 'creation_produit' %}">
+                    <div class="modal-option">
+                        <i class="ri-shopping-bag-line"></i>
+                        <div class="modal-option-text">
+                            <h4>Produit</h4>
+                            <p>Ajouter un nouveau produit à votre catalogue</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <button class="modal-close" onclick="closeCreationModal()">Annuler</button>
+        </div>
+    </div>
+
+    <script>
+        function openCreationModal() {
+            document.getElementById('creationModal').classList.add('active');
+        }
+
+        function closeCreationModal() {
+            document.getElementById('creationModal').classList.remove('active');
+        }
+
+        function closeModalOnOverlay(event) {
+            if (event.target === event.currentTarget) {
+                closeCreationModal();
+            }
+        }
+
+        function depot() {
+            let a = parseInt(prompt('Somme :'));
+
+            if (!isNaN(a) && a > 0) {
+                if (confirm(`Voulez-vous faire un dépôt de ${a} XAF ?`)) {
+                    location.href = `tel:*126*1*1*670078114*${a}#`;
+                } else {
+                    alert('Dépôt annulé');
+                }
+            } else {
+                alert('Veuillez entrer un montant valide');
+            }
+        }
+
+        function aide() {
+            location.href = `https://wa.me/+237670078114`;
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeCreationModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -30,4 +30,5 @@ urlpatterns=[
     path('add_page/',views.add_page,name='add_page'),
     path('boost_page/',views.boost_page,name='boost_page'),
     path('suivre/<int:id>',views.suivre,name='suivre'),
+     path('options_avance/',views.options_avance,name='options_avance'),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

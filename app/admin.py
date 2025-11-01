@@ -37,6 +37,6 @@ class BoostAdmin(admin.ModelAdmin):
 admin.site.register(Boost,BoostAdmin)
 
 class suiviAdmin(admin.ModelAdmin):
-    list_display=('user','boost','date')
+    list_display=('user','boost__nom','date')
 
 admin.site.register(suivi,suiviAdmin)

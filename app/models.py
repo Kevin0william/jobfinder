@@ -73,6 +73,9 @@ class Boost(models.Model):
     nom = models.CharField(max_length=150)
     lien = models.URLField(unique=True)
     
+    def str(self):
+        self.nom
+
 
 class suivi(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -1,0 +1,28 @@
+{
+    "name": "JobFinder",
+    "short_name": "JobFinder",
+    "description": "Trouvez un emploi ou publiez vos offres avec JobFinder.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#e0f2fe",
+    "theme_color": "#0b0d20",
+    "orientation": "portrait-primary",
+    "icons": [{
+            "src": "/static/app/icons/jobfinder.jpg",
+            "sizes": "192x192",
+            "type": "image/jpg"
+        },
+        {
+            "src": "/static/app/icons/2.jpeg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "/static/app/icons/3.jpeg",
+            "sizes": "512x512",
+            "type": "image/jpeg",
+            "purpose": "maskable"
+        }
+    ]
+}
