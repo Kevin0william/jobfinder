@@ -4,7 +4,7 @@ const urlsToCache = [
     // "/static/app/css/style.css",
     "/static/app/manifest.json",
     "/static/app/icons/jobfinder.jpg",
-    "/static/app/icons/2.jpeg",
+    "/static/app/icons/jobfinder.jpg",
 ];
 
 // Installation du service worker

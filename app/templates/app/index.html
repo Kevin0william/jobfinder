@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="manifest" href="{% static 'app/manifest.json' %}">
     <meta name="theme-color" content="#0b0d20">
-    <link rel="apple-touch-icon" href="{% static 'app/icons/icon-192x192.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'app/icons/jobfinder.jpg' %}">
 
     <style>
         * {
@@ -394,6 +394,53 @@
                 font-size: 1.5rem;
             }
         }
+        
+        .install-button {
+            margin-top: 18px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #0055ff, #002b80);
+            color: #fff;
+            transition: all .3s ease;
+            box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3);
+        }
+        
+        .install-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 85, 255, 0.45);
+        }
+        
+        .install-button:active {
+            transform: scale(0.97);
+        }
+        
+        .install-button::before {
+            content: "⬇️ ";
+        }
+        
+        @media (max-width: 480px) {
+            .install-button {
+                width: 100%;
+                padding: 14px 0;
+            }
+        }
+        
+        .install-button {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: showInstallBtn 0.4s forwards;
+        }
+        
+        @keyframes showInstallBtn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -410,7 +457,14 @@
 
     <div class="hero">
         <h1>Trouvez votre <span>opportunité</span> au Cameroun</h1>
-        <p>JobFinder est la plateforme numérique innovante qui connecte les talents camerounais avec des opportunités professionnelles et commerciales dans tout le territoire national.</p>
+
+        <p>
+            JobFinder est la plateforme numérique innovante qui connecte les talents camerounais avec des opportunités professionnelles et commerciales dans tout le territoire national.
+        </p>
+
+        <button id="installBtn" class="install-button" style="display:none;">
+        📲 Installer l'application
+    </button>
     </div>
 
     <main class="main-content">
@@ -484,6 +538,39 @@
                     .catch(err => console.log("Erreur SW ❌", err));
             });
         }
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Empêche l'apparition automatique du pop-up install PWA
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Affiche ton bouton
+            installBtn.style.display = 'block';
+
+            installBtn.addEventListener('click', async() => {
+                // Cache le bouton après click
+                installBtn.style.display = 'none';
+
+                // Déclenche le vrai prompt d'installation
+                deferredPrompt.prompt();
+
+                const {
+                    outcome
+                } = await deferredPrompt.userChoice;
+                console.log('Résultat installation :', outcome);
+
+                // Reset
+                deferredPrompt = null;
+            });
+        });
+
+        // Optionnel : cacher le bouton si déjà installé
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installée !');
+            installBtn.style.display = 'none';
+        });
     </script>
 
 </body>

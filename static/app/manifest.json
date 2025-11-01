@@ -1,7 +1,7 @@
 {
     "name": "JobFinder",
     "short_name": "JobFinder",
-    "description": "Trouvez un emploi ou publiez vos offres avec JobFinder.",
+    "description": "Trouvez un emploi ou publiez vos offres avec JobFinder. Creer par Matip kevin william (monetiseur tiktok)",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
@@ -14,12 +14,12 @@
             "type": "image/jpg"
         },
         {
-            "src": "/static/app/icons/2.jpeg",
+            "src": "/static/app/icons/jobfinder.jpg",
             "sizes": "512x512",
             "type": "image/jpeg"
         },
         {
-            "src": "/static/app/icons/2.jpeg",
+            "src": "/static/app/icons/jobfinder.jpg",
             "sizes": "512x512",
             "type": "image/jpeg",
             "purpose": "maskable"
