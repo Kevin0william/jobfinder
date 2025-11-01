@@ -1,17 +1,19 @@
 {
-    "name": "JobFinder",
+    "name": "JobFinder - Trouvez votre emploi facilement",
     "short_name": "JobFinder",
-    "description": "Trouvez un emploi ou publiez vos offres avec JobFinder. Creer par Matip kevin william (monetiseur tiktok)",
+    "description": "Découvrez JobFinder : trouvez un emploi, publiez vos offres et restez connecté avec votre réseau. Créé par Matip Kevin William.",
+    "lang": "fr",
+    "dir": "ltr",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
     "background_color": "#0b0d20",
-    "theme_color": "#0b0d20",
+    "theme_color": "#2563eb",
     "orientation": "portrait-primary",
     "icons": [{
             "src": "/static/app/icons/jobfinder.jpg",
             "sizes": "192x192",
-            "type": "image/jpg"
+            "type": "image/jpeg"
         },
         {
             "src": "/static/app/icons/jobfinder.jpg",
@@ -24,5 +26,6 @@
             "type": "image/jpeg",
             "purpose": "maskable"
         }
-    ]
+    ],
+    "prefer_related_applications": false
 }
