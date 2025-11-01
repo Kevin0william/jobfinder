@@ -2,8 +2,6 @@
     "name": "JobFinder - Trouvez votre emploi facilement",
     "short_name": "JobFinder",
     "description": "Découvrez JobFinder : trouvez un emploi, publiez vos offres et restez connecté avec votre réseau. Créé par Matip Kevin William.",
-    "lang": "fr",
-    "dir": "ltr",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
@@ -26,6 +24,5 @@
             "type": "image/jpeg",
             "purpose": "maskable"
         }
-    ],
-    "prefer_related_applications": false
+    ]
 }

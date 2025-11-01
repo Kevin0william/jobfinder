@@ -93,17 +93,17 @@ DATABASES = {
 
 
 # Définir ASGI application
-ASGI_APPLICATION = 'pro.asgi.application'
+# ASGI_APPLICATION = 'pro.asgi.application'
 
-# Configurer le channel layer
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],  # Redis local
-        },
-    },
-}
+# # Configurer le channel layer
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [('127.0.0.1', 6379)],  # Redis local
+#         },
+#     },
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
