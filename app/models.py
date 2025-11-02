@@ -84,3 +84,9 @@ class suivi(models.Model):
 
     class Meta:
         unique_together = ('user','boost')
+
+class Createur(models.Model):
+    nom = 'MATIP YAB'
+    prenom = 'Kevin Dieudonne'
+    date_naissance = '04/03/2006'
+    date_creation_jobfinder = 'octobre 2025'

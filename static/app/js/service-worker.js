@@ -3,8 +3,8 @@ const urlsToCache = [
     "/", // ta page d'accueil
     // "/static/app/css/style.css",
     "/static/app/manifest.json",
-    "/static/app/icons/1.jpg",
-    "/static/app/icons/kevin.jpg",
+    "/static/app/icons/jobfinder.jpg",
+    "/static/app/icons/jobfinder.jpg",
 ];
 
 // Installation du service worker
