@@ -386,7 +386,7 @@ def modifier_publication(request,id):
         publication.style = request.POST.get('style')
         publication.save()
         return redirect('publication')
-    return render(request,'app/modifier_publication.html')
+    return render(request,'app/modifier_publication.html',{'publication':publication})
 
 ####################################################################
 ##

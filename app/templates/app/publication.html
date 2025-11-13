@@ -15,14 +15,14 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #dbeafe 100%);
             min-height: 100vh;
             line-height: 1.6;
         }
-
+        
         header {
             background: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -32,7 +32,7 @@
             z-index: 100;
             border-bottom: 1px solid #e5e7eb;
         }
-
+        
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -42,25 +42,25 @@
             gap: 2rem;
             flex-wrap: wrap;
         }
-
+        
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
             color: #1e40af;
             letter-spacing: -0.5px;
         }
-
+        
         .logo span {
             color: #3b82f6;
         }
-
+        
         .header-actions {
             display: flex;
             gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
         }
-
+        
         .menu-toggle {
             display: flex;
             flex-direction: column;
@@ -71,11 +71,11 @@
             border-radius: 8px;
             background: #f1f5f9;
         }
-
+        
         .menu-toggle:hover {
             background: #e2e8f0;
         }
-
+        
         .menu-toggle span {
             width: 26px;
             height: 3px;
@@ -83,7 +83,7 @@
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-
+        
         .create-publication-btn {
             display: inline-flex;
             align-items: center;
@@ -97,17 +97,17 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
         }
-
+        
         .create-publication-btn:hover {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
-
+        
         .create-publication-btn i {
             font-size: 1.2rem;
         }
-
+        
         .navbar {
             position: fixed;
             top: 0;
@@ -121,11 +121,11 @@
             overflow-y: auto;
             padding: 2rem 0;
         }
-
+        
         .navbar.active {
             left: 0;
         }
-
+        
         .navbar-overlay {
             position: fixed;
             top: 0;
@@ -139,36 +139,36 @@
             z-index: 999;
             backdrop-filter: blur(4px);
         }
-
+        
         .navbar-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-
+        
         .navbar-header {
             padding: 0 1.5rem 1.5rem;
             border-bottom: 2px solid #e5e7eb;
         }
-
+        
         .navbar-header h2 {
             font-size: 1.8rem;
             color: #1e40af;
             font-weight: 700;
         }
-
+        
         .navbar-header h2 span {
             color: #3b82f6;
         }
-
+        
         .navbar-links {
             list-style: none;
             padding: 1.5rem 0;
         }
-
+        
         .navbar-links li {
             margin: 0;
         }
-
+        
         .navbar-links a {
             display: flex;
             align-items: center;
@@ -179,31 +179,31 @@
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
         }
-
+        
         .navbar-links a:hover {
             background: #f1f5f9;
             border-left-color: #3b82f6;
             color: #1e293b;
         }
-
+        
         .navbar-links .icon {
             margin-right: 1rem;
             font-size: 1.3rem;
             color: #3b82f6;
         }
-
+        
         main {
             max-width: 680px;
             margin: 0 auto;
             padding: 2rem 1rem;
         }
-
+        
         .publication-grid {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-
+        
         .publication-card {
             background: #ffffff;
             border-radius: 12px;
@@ -211,18 +211,18 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
-
+        
         .publication-card:hover {
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
         }
-
+        
         .publication-header {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             padding: 1rem 1.25rem;
         }
-
+        
         .publication-avatar {
             width: 42px;
             height: 42px;
@@ -236,13 +236,13 @@
             font-weight: 600;
             flex-shrink: 0;
         }
-
+        
         .publication-creator {
             font-weight: 600;
             font-size: 0.95rem;
             color: #1e293b;
         }
-
+        
         .publication-body {
             padding: 1.5rem 2rem;
             min-height: 180px;
@@ -256,51 +256,51 @@
             line-height: 1.6;
             word-wrap: break-word;
         }
-
+        
         .style1 {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
         }
-
+        
         .style2 {
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
         }
-
+        
         .style3 {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
-
+        
         .style4 {
             background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
         }
-
+        
         .style5 {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
         }
-
+        
         .style6 {
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         }
-
+        
         .style7 {
             background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
         }
-
+        
         .style8 {
             background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
         }
-
+        
         .style9 {
             background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
         }
-
+        
         .style10 {
             background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
         }
-
+        
         .publication-footer {
             padding: 0.5rem 1.25rem;
         }
-
+        
         .interaction-stats {
             display: flex;
             justify-content: space-between;
@@ -310,7 +310,7 @@
             color: #64748b;
             font-size: 0.9rem;
         }
-
+        
         .likes-count {
             display: flex;
             align-items: center;
@@ -318,23 +318,23 @@
             cursor: pointer;
             transition: color 0.3s ease;
         }
-
+        
         .likes-count:hover {
             color: #3b82f6;
         }
-
+        
         .comments-count {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
+        
         .action-buttons {
             display: flex;
             padding: 0.5rem 0;
             gap: 0.5rem;
         }
-
+        
         .action-btn {
             flex: 1;
             display: flex;
@@ -351,24 +351,24 @@
             border-radius: 6px;
             transition: all 0.3s ease;
         }
-
+        
         .action-btn:hover {
             background: #f1f5f9;
             color: #1e293b;
         }
-
+        
         .action-btn i {
             font-size: 1.2rem;
         }
-
+        
         .action-btn.liked {
             color: #ef4444;
         }
-
+        
         .action-btn.liked:hover {
             color: #dc2626;
         }
-
+        
         .user-actions {
             display: flex;
             gap: 0.5rem;
@@ -376,7 +376,7 @@
             border-top: 1px solid #e5e7eb;
             margin-top: 0.5rem;
         }
-
+        
         .btn {
             flex: 1;
             padding: 0.65rem 1rem;
@@ -393,31 +393,31 @@
             gap: 0.5rem;
             border: none;
         }
-
+        
         .btn i {
             font-size: 1rem;
         }
-
+        
         .btn-primary {
             background: #3b82f6;
             color: #ffffff;
         }
-
+        
         .btn-primary:hover {
             background: #2563eb;
         }
-
+        
         .btn-danger {
             background: #fef2f2;
             color: #dc2626;
             border: 1px solid #fecaca;
         }
-
+        
         .btn-danger:hover {
             background: #fee2e2;
             border-color: #fca5a5;
         }
-
+        
         .no-publication {
             text-align: center;
             padding: 4rem 2rem;
@@ -427,51 +427,44 @@
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
-
+        
         .no-publication i {
             font-size: 3.5rem;
             color: #cbd5e1;
             margin-bottom: 1rem;
             display: block;
         }
-
+        
         @media (max-width: 768px) {
             header {
                 padding: 1rem;
             }
-
             .header-content {
                 gap: 1rem;
             }
-
             .logo {
                 font-size: 1.5rem;
             }
-
             .navbar {
                 width: 85%;
                 max-width: 280px;
             }
-
             main {
                 padding: 1.5rem 0.75rem;
             }
-
             .publication-body {
                 font-size: 1.25rem;
                 padding: 1.25rem 1.5rem;
                 min-height: 150px;
             }
-
             .create-publication-btn span {
                 display: none;
             }
-
             .user-actions {
                 flex-direction: column;
             }
         }
-
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -482,7 +475,7 @@
                 transform: translateY(0);
             }
         }
-
+        
         .publication-card {
             animation: fadeInUp 0.5s ease;
         }
@@ -527,7 +520,8 @@
                     <div class="publication-avatar">
                         <i class="ri-user-3-fill"></i>
                     </div>
-                    <div class="publication-creator">{{ publication.createur }}</div>
+                    <div class="publication-creator">{{ publication.createur }} <br> {{publication.date|date:'d/m/Y - H:i'}} </div>
+
                 </div>
 
                 <div class="publication-body {{publication.style}}">
@@ -562,12 +556,10 @@
                     {% if publication.createur == request.user %}
                     <div class="user-actions">
                         <a href="{% url 'modifier_publication' publication.id %}" class="btn btn-primary">
-                            <i class="ri-edit-line"></i>
-                            Modifier
+                            <i class="ri-edit-line"></i> Modifier
                         </a>
                         <a href="{% url 'supprimer_publication' publication.id %}" class="btn btn-danger">
-                            <i class="ri-delete-bin-line"></i>
-                            Supprimer
+                            <i class="ri-delete-bin-line"></i> Supprimer
                         </a>
                     </div>
                     {% endif %}
