@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-import openai
-from openai import OpenAI
+# import openai
+# from openai import OpenAI
 from pro.settings import GPT4_API_KEY
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -451,107 +451,107 @@ def total_p(request):
     return render(request,'app/publication.html',{'likes':likes})
             
 
-client = OpenAI(api_key=GPT4_API_KEY)
+# client = OpenAI(api_key=GPT4_API_KEY)
 
-openai.api_key = GPT4_API_KEY
+# openai.api_key = GPT4_API_KEY
 
-@login_required
-def chat_with_lia(request):
-    chats = ChatMessage.objects.filter(user=request.user)
-    if request.method == "POST":
-        message = request.POST.get("message", "").strip()
-        ChatMessage.objects.create(
-            user = request.user,
-            role = 'user',
-            content = message
-        )
-        if not message:
-            return JsonResponse({'response': 'Message vide'}, status=400)
+# @login_required
+# def chat_with_lia(request):
+#     chats = ChatMessage.objects.filter(user=request.user)
+#     if request.method == "POST":
+#         message = request.POST.get("message", "").strip()
+#         ChatMessage.objects.create(
+#             user = request.user,
+#             role = 'user',
+#             content = message
+#         )
+#         if not message:
+#             return JsonResponse({'response': 'Message vide'}, status=400)
         
-        # Historique limité aux 100 derniers messages
-        history = request.session.get('chat_history', [])
-        history.append({"role": "user", "content": message})
-        history = history[-100:]  # garde seulement les 100 derniers
+#         # Historique limité aux 100 derniers messages
+#         history = request.session.get('chat_history', [])
+#         history.append({"role": "user", "content": message})
+#         history = history[-100:]  # garde seulement les 100 derniers
 
-        # Vérifier si le message est une salutation simple
-        salutations = ['salut', 'bonjour', 'hello', 'coucou', 'hi','cc','yo']
-        if message.lower() in salutations:
-            reply = f"Salut {request.user}! Comment puis-je vous aider ?"
-            ChatMessage.objects.create(
-            user = request.user,
-            role = 'assistant',
-            content = reply
-            )
-        else:
-    # Construire le prompt avec l'historique de manière concise
-            full_prompt = """
-                    Tu es JobFinder, l’assistant officiel de la plateforme numérique JobFinder.
-                    Tu dois répondre de manière simple, brève et précise, en allant directement à l’essentiel.
-                    Tu réponds uniquement à la question posée, sans ajouter d’informations inutiles.
-                    Tu essaie toujours de creer un espace de confiance entre les utilisateurs et toi
+#         # Vérifier si le message est une salutation simple
+#         salutations = ['salut', 'bonjour', 'hello', 'coucou', 'hi','cc','yo']
+#         if message.lower() in salutations:
+#             reply = f"Salut {request.user}! Comment puis-je vous aider ?"
+#             ChatMessage.objects.create(
+#             user = request.user,
+#             role = 'assistant',
+#             content = reply
+#             )
+#         else:
+#     # Construire le prompt avec l'historique de manière concise
+#             full_prompt = """
+#                     Tu es JobFinder, l’assistant officiel de la plateforme numérique JobFinder.
+#                     Tu dois répondre de manière simple, brève et précise, en allant directement à l’essentiel.
+#                     Tu réponds uniquement à la question posée, sans ajouter d’informations inutiles.
+#                     Tu essaie toujours de creer un espace de confiance entre les utilisateurs et toi
 
-                    Voici ce que tu dois savoir :
+#                     Voici ce que tu dois savoir :
 
-                    📌 À propos de JobFinder :
-                    - Plateforme numérique pour trouver un emploi et vendre des services/produits en Afrique.
-                    - Mission : aider la communauté à trouver facilement du travail et valoriser les compétences.
-                    - Les utilisateurs peuvent publier des offres, des CV et des annonces visibles par tous.
+#                     📌 À propos de JobFinder :
+#                     - Plateforme numérique pour trouver un emploi et vendre des services/produits en Afrique.
+#                     - Mission : aider la communauté à trouver facilement du travail et valoriser les compétences.
+#                     - Les utilisateurs peuvent publier des offres, des CV et des annonces visibles par tous.
 
-                    📌 Fonctionnalités clés :
-                    1. Likes :
-                    - Les likes viennent des offres et des publications.
-                    - Ils servent au système de récompense.
+#                     📌 Fonctionnalités clés :
+#                     1. Likes :
+#                     - Les likes viennent des offres et des publications.
+#                     - Ils servent au système de récompense.
 
-                    2. Système de Récompense :
-                    - À 1000 likes → l’utilisateur gagne 5 $.
-                    - Après chaque récompense, le quota augmente de +1000 likes pour obtenir les 5 $ suivants.
-                    - Exemple : 1000 ✅ → 5 $ | 2000 ✅ → 5 $ | 3000 ✅ → 5 $
-                    - Le quota de like avant une recompense augmente mais pas la recompense
+#                     2. Système de Récompense :
+#                     - À 1000 likes → l’utilisateur gagne 5 $.
+#                     - Après chaque récompense, le quota augmente de +1000 likes pour obtenir les 5 $ suivants.
+#                     - Exemple : 1000 ✅ → 5 $ | 2000 ✅ → 5 $ | 3000 ✅ → 5 $
+#                     - Le quota de like avant une recompense augmente mais pas la recompense
 
-                    3. Recherche :
-                    - Sur la page d’accueil et la page CV :
-                    - On peut rechercher par titre, ville ou nom du créateur.
-                    - Pour annuler la recherche → envoyer un champ vide.
+#                     3. Recherche :
+#                     - Sur la page d’accueil et la page CV :
+#                     - On peut rechercher par titre, ville ou nom du créateur.
+#                     - Pour annuler la recherche → envoyer un champ vide.
 
-                    📌 Style de réponse attendu :
-                    - Toujours clair, direct, et court.
-                    - Répond toujours uniquement à la question posée.
-                    - Pas d'informations non demandées.
-                    - Donne ton avis personnel si l'utilisateur te pose une question de logique.
-                    - Reponse amicale mais professionel
+#                     📌 Style de réponse attendu :
+#                     - Toujours clair, direct, et court.
+#                     - Répond toujours uniquement à la question posée.
+#                     - Pas d'informations non demandées.
+#                     - Donne ton avis personnel si l'utilisateur te pose une question de logique.
+#                     - Reponse amicale mais professionel
 
-                    Tu as une parfaite connaissance du fonctionnement de la plateforme JobFinder.
-                    Mais tu connais egalement d'autre sujet sur la vie , le monde et bien d'autre donc si l'utilisateur te demande une histoire , de jouer ou simplement de discuter tu peux le faire sans introduire d'information sur la plateforme JobFinder.
+#                     Tu as une parfaite connaissance du fonctionnement de la plateforme JobFinder.
+#                     Mais tu connais egalement d'autre sujet sur la vie , le monde et bien d'autre donc si l'utilisateur te demande une histoire , de jouer ou simplement de discuter tu peux le faire sans introduire d'information sur la plateforme JobFinder.
 
-                    Réponds maintenant à la question de l’utilisateur :
-                    """
+#                     Réponds maintenant à la question de l’utilisateur :
+#                     """
 
-            for msg in history[-20:]:  # garder seulement les 20 derniers pour la fluidité
-                full_prompt += f"{msg['role'].capitalize()}: {msg['content']}\n"
+#             for msg in history[-20:]:  # garder seulement les 20 derniers pour la fluidité
+#                 full_prompt += f"{msg['role'].capitalize()}: {msg['content']}\n"
 
 
-            try:
-                response = client.responses.create(
-                    model="gpt-5-nano",
-                    input=full_prompt,
-                    store=True,
-                )
-                reply = response.output_text.strip()
-                ChatMessage.objects.create(
-                    user = request.user,
-                    role = 'Lia',
-                    content = reply
-                    )
-            except Exception as e:
-                return JsonResponse({'response': f'Erreur : {str(e)}'}, status=500)
+#             try:
+#                 response = client.responses.create(
+#                     model="gpt-5-nano",
+#                     input=full_prompt,
+#                     store=True,
+#                 )
+#                 reply = response.output_text.strip()
+#                 ChatMessage.objects.create(
+#                     user = request.user,
+#                     role = 'Lia',
+#                     content = reply
+#                     )
+#             except Exception as e:
+#                 return JsonResponse({'response': f'Erreur : {str(e)}'}, status=500)
 
-        # Ajouter la réponse de l'IA dans l'historique
-        history.append({"role": "assistant", "content": reply})
-        request.session['chat_history'] = history[-100:]  # limite mémoire à 100 messages
+#         # Ajouter la réponse de l'IA dans l'historique
+#         history.append({"role": "assistant", "content": reply})
+#         request.session['chat_history'] = history[-100:]  # limite mémoire à 100 messages
 
-        return JsonResponse({'response': reply})
+#         return JsonResponse({'response': reply})
     
-    return render(request, "app/chat_lia.html",{'chats':chats})
+#     return render(request, "app/chat_lia.html",{'chats':chats})
 
 
 
