@@ -68,6 +68,7 @@ def index(request):
 @login_required
 def accueil(request):
     query = request.GET.get('q')
+    s = 0
     if query :
         offres = Offre.objects.filter(
             Q(titre__icontains=query)|
@@ -75,7 +76,7 @@ def accueil(request):
         ).order_by('-date_creation')
     else:
         offres = Offre.objects.all().order_by('-date_creation')
-        s=0
+        
         for offre in offres:
             if offre.createur == request.user :
                 s += offre.total_like
@@ -454,16 +455,16 @@ def total_p(request):
 
 # openai.api_key = GPT4_API_KEY
 
-# @login_required
-# def chat_with_lia(request):
-#     chats = ChatMessage.objects.filter(user=request.user)
-#     if request.method == "POST":
-#         message = request.POST.get("message", "").strip()
-#         ChatMessage.objects.create(
-#             user = request.user,
-#             role = 'user',
-#             content = message
-#         )
+@login_required
+def chat_with_lia(request):
+    chats = ChatMessage.objects.filter(user=request.user)
+    if request.method == "POST":
+        message = request.POST.get("message", "").strip()
+        ChatMessage.objects.create(
+            user = request.user,
+            role = 'user',
+            content = message
+        )
 #         if not message:
 #             return JsonResponse({'response': 'Message vide'}, status=400)
         
@@ -473,14 +474,14 @@ def total_p(request):
 #         history = history[-100:]  # garde seulement les 100 derniers
 
 #         # Vérifier si le message est une salutation simple
-#         salutations = ['salut', 'bonjour', 'hello', 'coucou', 'hi','cc','yo']
-#         if message.lower() in salutations:
-#             reply = f"Salut {request.user}! Comment puis-je vous aider ?"
-#             ChatMessage.objects.create(
-#             user = request.user,
-#             role = 'assistant',
-#             content = reply
-#             )
+        salutations = ['salut', 'bonjour', 'hello', 'coucou', 'hi','cc','yo']
+        if message.lower() in salutations:
+            reply = f"Salut {request.user}! Comment puis-je vous aider ?"
+            ChatMessage.objects.create(
+            user = request.user,
+            role = 'assistant',
+            content = reply
+            )
 #         else:
 #     # Construire le prompt avec l'historique de manière concise
 #             full_prompt = """
@@ -548,9 +549,9 @@ def total_p(request):
 #         history.append({"role": "assistant", "content": reply})
 #         request.session['chat_history'] = history[-100:]  # limite mémoire à 100 messages
 
-#         return JsonResponse({'response': reply})
+        return JsonResponse({'response': reply})
     
-#     return render(request, "app/chat_lia.html",{'chats':chats})
+    return render(request, "app/chat_lia.html",{'chats':chats})
 
 
 

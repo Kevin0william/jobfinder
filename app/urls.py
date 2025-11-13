@@ -40,4 +40,5 @@ urlpatterns=[
      path('accueil/<int:offre_id>/like',views.like_offre,name='like_offre'),
      path('publication/<int:publication_id>/like',views.like_publication,name='like_publication'),
      path('publication/<int:id>/commentaires/', views.commentaires_view, name='commentaires'),
+     path('chat/', views.chat_with_lia, name='chat'),
 ]+static(MEDIA_URL,document_root=MEDIA_ROOT)
