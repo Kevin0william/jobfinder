@@ -502,6 +502,7 @@
                 <div class="profile-info">
                     <h2>{{ user.username }}</h2>
                     <span class="email">{{ user.email }}</span>
+                    <span class="email"> Total de like recu : {{s}} </span>
                     <div class="profile-stats">
                         <a href="#offre">
                             <div class="stat-item">
@@ -541,6 +542,8 @@
                     <div class="card-body">
                         <h4 class="card-title">{{ offre.titre }}</h4>
                         <span class="card-location">{{ offre.ville }}</span>
+                        <p>Like recu : {{offre.total_like}} </p>
+
                     </div>
                     <div class="card-footer">
                         <a href="{% url 'detail_offre' offre.id %}" class="btn btn-primary">Voir détails</a>

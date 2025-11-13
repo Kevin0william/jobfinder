@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier votre CV - JobFinder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            position: relative;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+        /* body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -250px;
+            left: -250px;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -300px;
+            right: -300px;
+            animation: float 10s ease-in-out infinite reverse;
+        } */
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 700px;
+            padding: 3rem;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.6s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            letter-spacing: -1px;
+        }
+        
+        .logo h1 span {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .progress-container {
+            margin-bottom: 2.5rem;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #e2e8f0;
+            z-index: 0;
+        }
+        
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.4s ease;
+            z-index: 1;
+        }
+        
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #94a3b8;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .progress-step.completed {
+            background: #10b981;
+            color: white;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .step-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step-title h2 {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-title p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .welcome-content {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .welcome-content .user-greeting {
+            font-size: 1.3rem;
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-content .username {
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        
+        .welcome-content .info-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .welcome-content .info-box h3 {
+            color: #1e3a8a;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-content .info-box p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+        
+        .welcome-content .info-box ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .welcome-content .info-box ul li {
+            color: #475569;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .welcome-content .info-box ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.6rem;
+        }
+        
+        .form-group label .required {
+            color: #ef4444;
+            margin-left: 3px;
+        }
+        
+        .form-group .label-description {
+            display: block;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 400;
+            margin-top: 0.3rem;
+            line-height: 1.5;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #94a3b8;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.4s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            .logo h1 {
+                font-size: 2rem;
+            }
+            .step-title h2 {
+                font-size: 1.5rem;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Job<span>Finder</span></h1>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="progress-line" id="progressLine"></div>
+                <div class="progress-step active" id="step-indicator-0">0</div>
+                <div class="progress-step" id="step-indicator-1">1</div>
+                <div class="progress-step" id="step-indicator-2">2</div>
+                <div class="progress-step" id="step-indicator-3">3</div>
+                <div class="progress-step" id="step-indicator-4">4</div>
+            </div>
+        </div>
+
+        <form method="post" id="cvForm">
+            {% csrf_token %}
+
+            <div class="step active" id="step-0">
+                <div class="step-title">
+                    <h2>Bienvenue sur JobFinder</h2>
+                </div>
+                <div class="welcome-content">
+                    <p class="user-greeting">Bonjour <span class="username">{{user.username}}</span> !</p>
+
+                    <div class="info-box">
+                        <h3>Qu'est-ce qu'un CV ?</h3>
+                        <p>Un Curriculum Vitae (CV) est votre carte de visite professionnelle. C'est un document qui présente votre parcours, vos compétences et votre expérience de manière claire et structurée.</p>
+
+                        <p><strong>Créer un CV vous permet de :</strong></p>
+                        <ul>
+                            <li>Présenter votre profil aux employeurs</li>
+                            <li>Mettre en valeur vos compétences et réalisations</li>
+                            <li>Augmenter vos chances d'être recruté</li>
+                            <li>Vous démarquer des autres candidats</li>
+                        </ul>
+                    </div>
+
+                    <p style="color: #64748b; margin-bottom: 2rem;">Nous allons vous guider étape par étape pour créer votre CV professionnel en quelques minutes.</p>
+                </div>
+
+                <div class="button-group">
+                    <a href="{% url 'options_avance' %}" class="btn btn-secondary" style="text-decoration: none; text-align: center;">Retour</a>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(1)">Poursuivre</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-1">
+                <div class="step-title">
+                    <h2>Informations Personnelles</h2>
+                    <p>Commençons par vos informations de base</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="nom">
+                        Nom<span class="required">*</span>
+                        <span class="label-description">Votre nom de famille tel qu'il apparaîtra sur votre CV officiel</span>
+                    </label>
+                    <input type="text" id="nom" name="nom" value="{{cv.nom}}" placeholder="Ex: Kamga" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prenom">
+                        Prénom<span class="required">*</span>
+                        <span class="label-description">Votre prénom pour une identification complète</span>
+                    </label>
+                    <input type="text" id="prenom" name="prenom" value="{{cv.prenom}}" placeholder="Ex: Jean" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">
+                        Âge<span class="required">*</span>
+                        <span class="label-description">Nous avons besoin de connaître votre âge pour vérifier votre éligibilité aux différentes opportunités d'emploi et respecter les réglementations du travail</span>
+                    </label>
+                    <input type="number" id="age" name="age" value="{{cv.age}}" placeholder="Ex: 25" required min="16" max="100">
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(0)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Suivant</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-2">
+                <div class="step-title">
+                    <h2>Coordonnées de Contact</h2>
+                    <p>Comment les employeurs peuvent-ils vous joindre ?</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        Adresse Email<span class="required">*</span>
+                        <span class="label-description">Votre email professionnel permettra aux recruteurs de vous contacter rapidement pour des opportunités d'emploi</span>
+                    </label>
+                    <input type="email" id="email" name="email" value="{{cv.email}}" placeholder="Ex: jean.kamga@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">
+                        Numéro de Téléphone<span class="required">*</span>
+                        <span class="label-description">Un numéro valide où vous êtes facilement joignable pour les entretiens et communications importantes</span>
+                    </label>
+                    <input type="tel" id="telephone" name="telephone" value="{{cv.telephone}}" placeholder="Ex: +237 690 00 00 00" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">Suivant</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-3">
+                <div class="step-title">
+                    <h2>Compétences et Expérience</h2>
+                    <p>Parlez-nous de ce que vous savez faire</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="competence">
+                        Vos Compétences<span class="required">*</span>
+                        <span class="label-description">En quelques mots, indiquez vos principales compétences professionnelles (Ex: développement web, comptabilité, marketing digital)</span>
+                    </label>
+                    <input type="text" id="competence" name="competence" value="{{cv.competence}}" placeholder="Ex: Développement web, gestion de projet" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="desciption">
+                        Description Détaillée<span class="required">*</span>
+                        <span class="label-description">Décrivez ce que vous pouvez réellement accomplir. Avez-vous déjà exercé ce travail ? Si oui, pour qui ? Parlez de vos réalisations concrètes</span>
+                    </label>
+                    <textarea id="desciption" name="description" placeholder="Ex: J'ai travaillé comme développeur web chez XYZ pendant 3 ans. J'ai conçu et développé plusieurs sites e-commerce qui ont généré plus de 100M FCFA de ventes..." required>{{cv.description}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">
+                        Années d'Expérience<span class="required">*</span>
+                        <span class="label-description">Combien d'années d'expérience professionnelle avez-vous dans votre domaine ? Cela aide les employeurs à évaluer votre niveau d'expertise</span>
+                    </label>
+                    <input type="number" id="experience" value="{{cv.experience}}" name="experience" placeholder="Ex: 3" required min="0" max="50">
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">Suivant</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-4">
+                <div class="step-title">
+                    <h2>Localisation</h2>
+                    <p>Dernière étape : où êtes-vous situé ?</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="pays">
+                        Pays<span class="required">*</span>
+                        <span class="label-description">Le pays où vous résidez actuellement et où vous êtes disponible pour travailler</span>
+                    </label>
+                    <input type="text" id="pays" name="pays" value="{{cv.pays}}" placeholder="Ex: Cameroun" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ville">
+                        Ville<span class="required">*</span>
+                        <span class="label-description">La ville où vous habitez, cela permet aux employeurs locaux de vous trouver facilement</span>
+                    </label>
+                    <input type="text" id="ville" name="ville" value="{{cv.ville}}" placeholder="Ex: Douala" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Précédent</button>
+                    <button type="submit" class="btn btn-primary">Modifier mon CV</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 5;
+
+        function updateProgress() {
+            const progressLine = document.getElementById('progressLine');
+            const progressPercent = (currentStep / (totalSteps - 1)) * 100;
+            progressLine.style.width = progressPercent + '%';
+
+            for (let i = 0; i < totalSteps; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                indicator.classList.remove('active', 'completed');
+
+                if (i < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (i === currentStep) {
+                    indicator.classList.add('active');
+                }
+            }
+        }
+
+        function validateStep(stepNumber) {
+            const step = document.getElementById(`step-${stepNumber}`);
+            const inputs = step.querySelectorAll('input[required], textarea[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim() || !input.checkValidity()) {
+                    isValid = false;
+                    input.classList.add('shake');
+                    input.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        input.classList.remove('shake');
+                    }, 400);
+                }
+            });
+
+            return isValid;
+        }
+
+        function nextStep(stepNumber) {
+            if (currentStep > 0 && !validateStep(currentStep)) {
+                alert('Veuillez remplir tous les champs requis avant de continuer.');
+                return;
+            }
+
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = stepNumber;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function prevStep(stepNumber) {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = stepNumber;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        document.getElementById('cvForm').addEventListener('submit', function(e) {
+            if (!validateStep(currentStep)) {
+                e.preventDefault();
+                alert('Veuillez remplir tous les champs requis avant de soumettre le formulaire.');
+            }
+        });
+
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#3b82f6';
+            });
+
+            input.addEventListener('blur', function() {
+                if (this.value.trim() !== '') {
+                    this.style.borderColor = this.checkValidity() ? '#10b981' : '#ef4444';
+                } else {
+                    this.style.borderColor = '#e2e8f0';
+                }
+            });
+        });
+
+        updateProgress();
+    </script>
+</body>
+
+</html>

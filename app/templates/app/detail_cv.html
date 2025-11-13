@@ -1,0 +1,503 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ cv.prenom }} {{ cv.nom }} - JobFinder</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* Reset & base */
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e9eef6 100%);
+            color: #0f172a;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        /* Header & navbar */
+        
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e6eef8;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            box-shadow: 0 1px 2px rgba(10, 20, 40, 0.04);
+        }
+        
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #0f172a;
+        }
+        
+        .logo span {
+            color: #2563eb;
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 40px;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            height: 3px;
+            background: #0f172a;
+            border-radius: 3px;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: -360px;
+            width: 320px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: 6px 0 30px rgba(9, 30, 66, 0.08);
+            transition: left .36s cubic-bezier(.22, 1, .36, 1);
+            z-index: 80;
+            overflow-y: auto;
+            padding: 1.8rem 1rem;
+        }
+        
+        .navbar.active {
+            left: 0;
+        }
+        
+        .navbar-header h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        
+        .navbar-header h2 span {
+            color: #2563eb;
+        }
+        
+        .navbar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+            z-index: 70;
+        }
+        
+        .navbar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Container */
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        main.card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(10, 20, 40, 0.06);
+        }
+        /* Header image area */
+        
+        .cv-header {
+            position: relative;
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+        
+        .cv-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: .95;
+            transition: transform .5s ease;
+        }
+        
+        .cv-header .avatar-fallback {
+            font-size: 4rem;
+            opacity: .85;
+        }
+        
+        .cv-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 980px) {
+            .cv-content {
+                grid-template-columns: 1fr;
+            }
+            .cv-header {
+                height: 220px;
+            }
+        }
+        /* Left column */
+        
+        .cv-main {
+            padding-right: .5rem;
+        }
+        
+        .cv-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: .35rem;
+        }
+        
+        .cv-subtitle {
+            color: #2563eb;
+            font-weight: 700;
+            margin-bottom: .6rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: .35rem .7rem;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: .95rem;
+        }
+        
+        .meta-grid {
+            display: flex;
+            gap: .6rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 1.2rem 0;
+        }
+        
+        .meta-item {
+            background: #f8fafc;
+            padding: .7rem 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        
+        .meta-item .icon {
+            font-size: 1.15rem;
+        }
+        
+        .section {
+            margin-top: 1.2rem;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: .6rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 26px;
+            background: #2563eb;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        .box {
+            background: #fbfdff;
+            border-radius: 10px;
+            padding: 1rem;
+            color: #334155;
+            border: 1px solid #eef6ff;
+        }
+        /* Right column (sidebar) */
+        
+        .cv-side {
+            position: relative;
+        }
+        
+        .contact-card {
+            background: #ffffff;
+            border: 1px solid #e6eef8;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 6px 18px rgba(12, 24, 48, 0.04);
+        }
+        
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .5rem 0;
+        }
+        
+        .contact-row .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            font-size: 1.1rem;
+        }
+        
+        .actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: .6rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: .85rem 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+            border: none;
+        }
+        
+        .btn-secondary {
+            background: #f8fafc;
+            color: #0f172a;
+            border: 1px solid #e6eef8;
+        }
+        
+        .btn-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+        }
+        
+        .muted {
+            color: #64748b;
+            font-weight: 600;
+        }
+        /* Small helpers */
+        
+        .kicker {
+            color: #475569;
+            font-weight: 600;
+            font-size: .96rem;
+            margin-bottom: .5rem;
+        }
+        
+        .desc {
+            color: #374151;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        
+        @media (max-width:480px) {
+            .meta-item {
+                font-size: .9rem;
+                padding: .55rem .8rem;
+            }
+            .btn {
+                font-size: .95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar overlay & nav -->
+    <!-- <div class="navbar-overlay" id="navbarOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-header" style="margin-bottom:1rem;">
+            <h2>Job<span>Finder</span></h2>
+        </div>
+    </nav> -->
+
+    <header>
+        <div class="header-top">
+            <div class="logo">Job<span>Finder</span></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+                <a href="{% url 'cv' %}" class="btn btn-secondary" style="padding:.45rem .75rem; border-radius:8px; font-weight:700; text-decoration:none;">← Retour aux CV</a>
+                <!-- <div class="menu-toggle" id="menuToggle" title="Menu">
+                    <span></span><span></span><span></span>
+                </div> -->
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="card">
+            <!-- header visual -->
+            <div class="cv-header">
+                {% if cv.image %}
+                <img src="{{ cv.image.url }}" alt="Photo de {{ cv.prenom }} {{ cv.nom }}"> {% else %}
+                <div class="avatar-fallback">👤</div>
+                {% endif %}
+            </div>
+
+            <!-- content -->
+            <div class="cv-content">
+                <!-- left: main details -->
+                <div class="cv-main">
+                    <div class="cv-title">{{ cv.prenom }} {{ cv.nom }}</div>
+                    <div class="cv-subtitle">{{ cv.competence }}</div>
+                    <div style="margin-top:.6rem;">
+                        <span class="badge">{{ cv.experience }} ans d'expérience</span>
+                    </div>
+
+                    <div class="meta-grid" aria-hidden="true">
+                        <div class="meta-item"><span class="icon">🎂</span><span>Âge: <strong style="margin-left:.4rem;">{{ cv.age }} ans</strong></span></div>
+                        <div class="meta-item"><span class="icon">📍</span><span>Localisation: <strong style="margin-left:.4rem;">{{ cv.ville }}, {{ cv.pays }}</strong></span></div>
+                        <div class="meta-item"><span class="icon">👤</span><span>Créateur: <strong style="margin-left:.4rem;">{{ cv.createur }}</strong></span></div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="section">
+                        <div class="section-title">Description</div>
+                        <div class="box desc">
+                            {# note: champ 'desciption' selon ton formulaire #} {{ cv.description|default:"Aucune description fournie." }}
+                        </div>
+                    </div>
+
+                    <!-- Compétences (si tu veux afficher séparément, on peut splitter la chaîne) -->
+                    <div class="section">
+                        <div class="section-title">Compétences clés</div>
+                        <div class="box">
+                            {% if cv.competence %}
+                            <p class="kicker">Compétences déclarées</p>
+                            <p class="desc">{{ cv.competence }}</p>
+                            {% else %}
+                            <p class="muted">Aucune compétence renseignée.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- right: contact & actions -->
+                <aside class="cv-side">
+                    <div class="contact-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.6rem;">
+                            <div style="font-weight:800; font-size:1rem;">Coordonnées</div>
+                            <div class="muted">Contact</div>
+                        </div>
+
+                        <div class="contact-row">
+                            <div class="icon">✉️</div>
+                            <div>
+                                <div class="kicker">Email</div>
+                                <div class="muted">{{ cv.email|default:"—" }}</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <div class="icon">📞</div>
+                            <div>
+                                <div class="kicker">Téléphone</div>
+                                <div class="muted">{{ cv.telephone|default:"—" }}</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <div class="icon">📅</div>
+                            <div>
+                                <div class="kicker">Expérience</div>
+                                <div class="muted">{{ cv.experience }} ans</div>
+                            </div>
+                        </div>
+
+                        <div style="height:1px; background:#eef6ff; margin:1rem 0; border-radius:2px;"></div>
+
+                        {# Actions: si createur -> modifier + supprimer ; sinon -> contacter #}
+                        <div class="actions">
+                            {% if cv.createur == request.user %}
+                            <a href="{% url 'modifier_cv' cv.id %}" class="btn btn-primary"><i class="ri-pencil-line"></i> Modifier</a>
+                            <a href="{% url 'supprimer_cv' cv.id %}" class="btn btn-danger"><i class="ri-delete-bin-line"></i> Supprimer</a> {% else %}
+                            <form action="{% url 'discussion' user_id=cv.createur.id %}" method="get" style="width:100%;">
+                                <input type="hidden" name="contenue" value="Bonjour {{ cv.createur }}, je suis intéressé(e) par votre profil ({{ cv.prenom }} {{ cv.nom }}). Pouvez-vous me dire si vous êtes disponible pour une discussion ?">
+                                <button type="submit" class="btn btn-primary" style="width:100%;"><i class="ri-mail-line"></i> Contacter le créateur</button>
+                            </form>
+                            <a href="mailto:{{ cv.email }}" class="btn btn-secondary" style="text-decoration:none;"><i class="ri-send-plane-line"></i> Envoyer un email</a> {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- small info box -->
+                    <div style="margin-top:1rem; border-radius:10px; padding:1rem; background:#fbfdff; border:1px solid #eef6ff;">
+                        <div style="font-weight:700; margin-bottom:.5rem;">Informations</div>
+                        <div class="muted" style="font-size:.95rem;">Ce CV a été créé par <strong>{{ cv.createur }}</strong>. Les informations de contact sont affichées si disponibles.</div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Menu toggle behaviour (identique à tes autres pages)
+        const menuToggle = document.getElementById('menuToggle');
+        const navbar = document.getElementById('navbar');
+        const navbarOverlay = document.getElementById('navbarOverlay');
+        const navbarLinks = document.querySelectorAll('.navbar a');
+
+        function toggleNavbar() {
+            navbar.classList.toggle('active');
+            navbarOverlay.classList.toggle('active');
+        }
+
+        function closeNavbar() {
+            navbar.classList.remove('active');
+            navbarOverlay.classList.remove('active');
+        }
+
+        if (menuToggle) menuToggle.addEventListener('click', toggleNavbar);
+        if (navbarOverlay) navbarOverlay.addEventListener('click', closeNavbar);
+        navbarLinks.forEach(l => l.addEventListener('click', closeNavbar));
+    </script>
+</body>
+
+</html>

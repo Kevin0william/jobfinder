@@ -148,3 +148,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+GPT4_API_KEY = "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"

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier une offre - JobFinder</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Modifier Votre Offre d'Emploi - JobFinder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,12 +14,12 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #134e4a 0%, #0f766e 50%, #14b8a6 100%);
+            background: linear-gradient(135deg, #065f46 0%, #059669 35%, #10b981 70%, #34d399 100%);
             position: relative;
             overflow-x: hidden;
             padding: 2rem;
@@ -27,50 +27,50 @@
         /* body::before {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(45, 212, 191, 0.3) 0%, transparent 70%);
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.25) 0%, transparent 70%);
             border-radius: 50%;
-            top: -300px;
-            right: -300px;
-            animation: float 10s ease-in-out infinite;
+            top: -275px;
+            right: -275px;
+            animation: floatSlow 14s ease-in-out infinite;
         }
         
         body::after {
             content: '';
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
             border-radius: 50%;
-            bottom: -250px;
-            left: -250px;
-            animation: float 12s ease-in-out infinite reverse;
+            bottom: -225px;
+            left: -225px;
+            animation: floatSlow 11s ease-in-out infinite reverse;
         } */
         
-        @keyframes float {
+        @keyframes floatSlow {
             0%,
             100% {
-                transform: translate(0, 0) scale(1);
+                transform: translate(0, 0) rotate(0deg);
             }
             50% {
-                transform: translate(60px, 60px) scale(1.15);
+                transform: translate(40px, 40px) rotate(180deg);
             }
         }
         
         .container {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 28px;
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
             width: 100%;
-            max-width: 650px;
+            max-width: 750px;
             padding: 3.5rem;
             position: relative;
             z-index: 1;
-            animation: slideIn 0.7s ease;
+            animation: slideUp 0.7s ease;
         }
         
-        @keyframes slideIn {
+        @keyframes slideUp {
             from {
                 opacity: 0;
                 transform: translateY(40px) scale(0.95);
@@ -87,76 +87,157 @@
         }
         
         .logo h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 800;
-            color: #134e4a;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+            color: #065f46;
+            letter-spacing: -1.5px;
         }
         
         .logo h1 span {
-            background: linear-gradient(135deg, #0f766e 0%, #2dd4bf 100%);
+            background: linear-gradient(135deg, #059669 0%, #34d399 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .logo p {
-            color: #64748b;
-            font-size: 1rem;
-            font-weight: 500;
+        .step-indicators {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
         }
         
-        .form-title {
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .step-dot.active {
+            width: 40px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #059669, #10b981);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+        }
+        
+        .step-dot.completed {
+            background: #10b981;
+            transform: scale(1.2);
+        }
+        
+        .step {
+            display: none;
+            animation: fadeSlide 0.5s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .step-title {
             text-align: center;
             margin-bottom: 2.5rem;
         }
         
-        .form-title h2 {
+        .step-title h2 {
             font-size: 2rem;
-            color: #134e4a;
+            color: #065f46;
             font-weight: 700;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.7rem;
         }
         
-        .form-title p {
-            color: #64748b;
-            font-size: 0.95rem;
+        .step-title p {
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.6;
         }
         
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 10px;
+        .welcome-content {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .welcome-content .greeting {
+            font-size: 1.4rem;
+            color: #065f46;
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+        }
+        
+        .welcome-content .username {
+            color: #059669;
+            font-weight: 700;
+        }
+        
+        .welcome-content .info-card {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 5px solid #10b981;
+            padding: 2rem;
+            border-radius: 16px;
             margin-bottom: 2rem;
-            overflow: hidden;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+        }
+        
+        .welcome-content .info-card h3 {
+            color: #065f46;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-content .info-card p {
+            color: #374151;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-content .info-card ul {
+            list-style: none;
+            margin-top: 1.2rem;
+        }
+        
+        .welcome-content .info-card ul li {
+            color: #374151;
+            padding: 0.6rem 0;
+            padding-left: 2rem;
             position: relative;
+            line-height: 1.6;
         }
         
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #0f766e, #14b8a6, #2dd4bf);
-            border-radius: 10px;
-            transition: width 0.4s ease;
-            box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+        .welcome-content .info-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
         
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-        }
-        
-        .form-row {
+        .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group {
-            position: relative;
+            margin-bottom: 1.5rem;
         }
         
         .form-group.full-width {
@@ -165,11 +246,10 @@
         
         .form-group label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #334155;
-            margin-bottom: 0.6rem;
-            transition: color 0.3s ease;
+            color: #1f2937;
+            margin-bottom: 0.7rem;
         }
         
         .form-group label .required {
@@ -177,108 +257,129 @@
             margin-left: 3px;
         }
         
+        .form-group label .optional {
+            color: #10b981;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .form-group .label-hint {
+            display: block;
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-weight: 400;
+            margin-top: 0.3rem;
+            line-height: 1.5;
+        }
+        
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 1.1rem 1.3rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #e5e7eb;
             border-radius: 14px;
             font-size: 1rem;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             transition: all 0.3s ease;
-            background: #f8fafc;
-            color: #1e293b;
+            background: #f9fafb;
+            color: #111827;
         }
         
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #0f766e;
+            border-color: #059669;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
             transform: translateY(-2px);
-        }
-        
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: #94a3b8;
         }
         
         .form-group textarea {
             resize: vertical;
-            min-height: 140px;
+            min-height: 130px;
             line-height: 1.6;
         }
         
-        .char-counter {
-            position: absolute;
-            bottom: -22px;
-            right: 0;
-            font-size: 0.8rem;
-            color: #94a3b8;
-            transition: color 0.3s ease;
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #9ca3af;
         }
         
-        .char-counter.warning {
-            color: #f59e0b;
-        }
-        
-        .char-counter.danger {
-            color: #ef4444;
-        }
-        
-        .file-upload-wrapper {
+        .salary-wrapper {
             position: relative;
-            overflow: hidden;
         }
         
-        .file-upload-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            padding: 1.5rem;
-            border: 2px dashed #cbd5e1;
+        .salary-wrapper .currency {
+            position: absolute;
+            left: 1.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #059669;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .salary-wrapper input {
+            padding-left: 5.5rem;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed #d1d5db;
             border-radius: 14px;
-            background: #f8fafc;
+            padding: 2rem;
+            text-align: center;
+            background: #f9fafb;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #64748b;
-            font-weight: 500;
+            position: relative;
         }
         
-        .file-upload-label:hover {
-            border-color: #0f766e;
-            background: #f0fdfa;
-            color: #0f766e;
+        .file-upload-area:hover {
+            border-color: #059669;
+            background: #ecfdf5;
             transform: translateY(-2px);
         }
         
-        .file-upload-label.has-file {
+        .file-upload-area.has-file {
             border-color: #10b981;
             background: #d1fae5;
-            color: #065f46;
         }
         
-        .file-upload-icon {
-            font-size: 1.5rem;
-        }
-        
-        input[type="file"] {
+        .file-upload-area input[type="file"] {
             display: none;
         }
         
+        .file-upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .file-upload-icon {
+            font-size: 2.5rem;
+        }
+        
+        .file-upload-text {
+            font-weight: 600;
+            color: #6b7280;
+        }
+        
+        .file-upload-hint {
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+        
         .file-preview {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #f0fdfa;
+            margin-top: 1.2rem;
+            padding: 1.2rem;
+            background: #ecfdf5;
             border-radius: 12px;
             display: none;
             align-items: center;
             gap: 1rem;
-            animation: fadeIn 0.4s ease;
         }
         
         .file-preview.show {
@@ -286,10 +387,10 @@
         }
         
         .file-preview img {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
@@ -299,24 +400,24 @@
         
         .file-preview-name {
             font-weight: 600;
-            color: #0f766e;
+            color: #065f46;
             margin-bottom: 0.3rem;
         }
         
         .file-preview-size {
             font-size: 0.85rem;
-            color: #64748b;
+            color: #6b7280;
         }
         
         .file-preview-remove {
             background: #ef4444;
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
         
         .file-preview-remove:hover {
@@ -324,128 +425,52 @@
             transform: scale(1.05);
         }
         
-        .salary-input-wrapper {
-            position: relative;
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
         }
         
-        .currency-symbol {
-            position: absolute;
-            left: 1.3rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #0f766e;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .salary-input-wrapper input {
-            padding-left: 5rem;
-        }
-        
-        button[type="submit"] {
-            padding: 1.3rem;
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
-            color: #ffffff;
+        .btn {
+            flex: 1;
+            padding: 1.2rem;
             border: none;
             border-radius: 14px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(15, 118, 110, 0.35);
-            margin-top: 1rem;
-            position: relative;
-            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
         }
         
-        button[type="submit"]::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
+        .btn-primary {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35);
         }
         
-        button[type="submit"]:hover::before {
-            left: 100%;
-        }
-        
-        button[type="submit"]:hover {
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.45);
-            background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+            box-shadow: 0 10px 30px rgba(5, 150, 105, 0.45);
         }
         
-        button[type="submit"]:active {
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
             transform: translateY(-1px);
         }
         
-        .form-footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .form-footer p {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-        
-        .form-footer a {
-            color: #0f766e;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
-            margin-top: 0.5rem;
-        }
-        
-        .form-footer a:hover {
-            color: #14b8a6;
-            background: rgba(15, 118, 110, 0.08);
-        }
-        
-        .input-hint {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-top: 0.4rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        .validation-icon {
-            display: none;
-            position: absolute;
-            right: 1.3rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-        }
-        
-        .validation-icon.valid {
-            display: block;
-            color: #10b981;
-        }
-        
-        .validation-icon.invalid {
-            display: block;
-            color: #ef4444;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .btn-full {
+            width: 100%;
         }
         
         @keyframes shake {
@@ -469,15 +494,17 @@
             .container {
                 padding: 2.5rem 1.8rem;
             }
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 1.8rem;
-            }
             .logo h1 {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
-            .form-title h2 {
+            .step-title h2 {
                 font-size: 1.6rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
             }
         }
     </style>
@@ -487,258 +514,312 @@
     <div class="container">
         <div class="logo">
             <h1>Job<span>Finder</span></h1>
-            <p>Votre partenaire emploi au Cameroun</p>
         </div>
 
-        <div class="form-title">
-            <h2>Modifier l'offre</h2>
-            <p>Apportez les modifications nécessaire </p>
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress-bar-fill" id="progressBar"></div>
+        <div class="step-indicators">
+            <div class="step-dot active" id="dot-0"></div>
+            <div class="step-dot" id="dot-1"></div>
+            <div class="step-dot" id="dot-2"></div>
+            <div class="step-dot" id="dot-3"></div>
+            <div class="step-dot" id="dot-4"></div>
         </div>
 
         <form method="post" enctype="multipart/form-data" id="offreForm">
             {% csrf_token %}
 
-            <div class="form-group full-width">
-                <label for="titre">Nom de l'offre<span class="required">*</span></label>
-                <input type="text" id="titre" name="titre" placeholder="Ex:IPHONE 15 PRO 256G" required autocomplete="off" value=" {{ offre.titre }} ">
-                <span class="validation-icon" id="titreIcon">✓</span>
-                <div class="input-hint">💡 Soyez précis sur le nom de votre produit</div>
+            <div class="step active" id="step-0">
+                <div class="step-title">
+                    <h2>Bienvenue sur JobFinder</h2>
+                </div>
+                <div class="welcome-content">
+                    <p class="greeting">Bonjour <span class="username">{{user.username}}</span> !</p>
+
+                    <div class="info-card">
+                        <h3>Publiez votre offre d'emploi</h3>
+                        <p>Vous êtes sur le point de créer une offre d'emploi qui sera visible par des milliers de candidats qualifiés à travers le Cameroun.</p>
+
+                        <p><strong>Une offre d'emploi bien rédigée vous permet de :</strong></p>
+                        <ul>
+                            <li>Attirer les meilleurs talents pour votre entreprise</li>
+                            <li>Définir clairement les attentes et responsabilités</li>
+                            <li>Recevoir des candidatures pertinentes et qualifiées</li>
+                            <li>Gagner du temps dans votre processus de recrutement</li>
+                        </ul>
+                    </div>
+
+                    <p style="color: #6b7280; margin-bottom: 2rem;">Nous allons vous accompagner pas à pas pour modifier votre offre d'emploi attractive et complète.</p>
+                </div>
+
+                <div class="button-group">
+                    <a href="{% url 'options_avance' %}" class="btn btn-secondary" style="text-decoration: none; text-align: center;">Retour</a>
+                    <button type="button" class="btn btn-primary" onclick="goToStep(1)">Poursuivre</button>
+                </div>
             </div>
 
-            <div class="form-group full-width">
-                <label for="description">Description du produit<span class="required">*</span></label>
-                <textarea id="description" name="description" placeholder="Décrivez toutes informations relative au produit" required> {{ offre.description }} </textarea>
-                <span class="char-counter" id="charCounter">0 / 500 caractères</span>
-                <div class="input-hint">📝 Une bonne description attire plus d'achéteur</div>
-            </div>
+            <div class="step" id="step-1">
+                <div class="step-title">
+                    <h2>Informations sur le Poste</h2>
+                    <p>Décrivez le poste que vous proposez</p>
+                </div>
 
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="salaire">Prix d'achat<span class="required">*</span></label>
-                    <div class="salary-input-wrapper">
-                        <span class="currency-symbol">FCFA</span>
-                        <input type="number" id="salaire" name="prix" placeholder="" required min="0" value=" {{ offre.salaire }} ">
-                    </div>
-                    <span class="validation-icon" id="salaireIcon">✓</span>
-                </div>
-
-            </div>
-
-            <div class="form-group full-width">
-                <label for="ville">Localisation<span class="required">*</span></label>
-                <input type="text" id="ville" name="ville" placeholder="Ex: Douala, Yaoundé, Bafoussam..." required autocomplete="off" value=" {{ offre.ville }} ">
-                <span class="validation-icon" id="villeIcon">✓</span>
-                <div class="input-hint">📍 Indiquez la ville ou la région</div>
-            </div>
-
-            <div class="form-group full-width">
-                <label for="image">Image du produit<span class="required">*</span></label>
-                <div class="file-upload-wrapper">
-                    <label for="image" class="file-upload-label" id="fileLabel">
-                        <span class="file-upload-icon">📁</span>
-                        <span id="fileLabelText">Cliquez pour importer une image</span>
+                    <label for="titre">
+                        Titre du Poste<span class="required">*</span>
+                        <span class="label-hint">Choisissez un titre clair et attractif qui reflète précisément le poste à pourvoir (Ex: Développeur Web Full Stack, Comptable Senior)</span>
                     </label>
-                    <input type="file" id="image" name="image" accept="image/*">
+                    <input type="text" id="titre" name="titre" value="{{offre.titre}}" placeholder="Ex: Responsable Marketing Digital" required>
                 </div>
-                <div class="file-preview" id="filePreview">
-                    <img id="previewImage" src="" alt="Aperçu">
-                    <div class="file-preview-info">
-                        <div class="file-preview-name" id="fileName"></div>
-                        <div class="file-preview-size" id="fileSize"></div>
-                    </div>
-                    <button type="button" class="file-preview-remove" id="removeFile">Supprimer</button>
+
+                <div class="form-group">
+                    <label for="description">
+                        Description du Poste<span class="required">*</span>
+                        <span class="label-hint">Décrivez en détail les missions principales, les responsabilités quotidiennes, les compétences requises et ce qui rend ce poste unique</span>
+                    </label>
+                    <textarea id="description" name="description" placeholder="Décrivez les missions, responsabilités et compétences requises pour ce poste..." required>{{offre.description}}</textarea>
                 </div>
-                <div class="input-hint">🖼️ Format JPG, PNG (Max 5 MB)</div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(0)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="goToStep(2)">Suivant</button>
+                </div>
             </div>
 
-            <button type="submit" id="submitBtn">
-                <span>✨ Modification de l'offre</span>
-            </button>
-        </form>
+            <div class="step" id="step-2">
+                <div class="step-title">
+                    <h2>Rémunération</h2>
+                    <p>Indiquez le salaire proposé</p>
+                </div>
 
-        <div class="form-footer">
-            <p>Pour toute préocupation , contactez le créateur</p>
-        </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="salaire">
+                            Salaire Proposé<span class="optional">(optionnel)</span>
+                            <span class="label-hint">Le montant que vous proposez de verser au candidat retenu</span>
+                        </label>
+                        <div class="salary-wrapper">
+                            <span class="currency">FCFA</span>
+                            <input type="number" id="salaire" name="salaire" placeholder="200000" value="{{offre.salaire}}" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type_paiement">
+                            Fréquence de Paiement<span class="required">*</span>
+                            <span class="label-hint">À quelle fréquence le salaire sera-t-il versé ?</span>
+                        </label>
+                        <select id="type_paiement" name="type_paiement" required>
+                            <option value="">Sélectionnez...</option>
+                            {% if offre.type_paiement == 'Par jour' %}
+                            <option value="Par jour" selected>Par jour</option>
+                            {% else %}
+                            <option value="Par jour">Par jour</option>
+                            {% endif %}
+                            {% if offre.type_payement == 'Par semaine' %}
+                            <option value="Par semaine" selected>Par semaine</option>
+                            {% else %}
+                            <option value="Par semaine">Par semaine</option>
+                            {% endif %}
+                            {% if offre.type_paiement == 'Par mois' %}
+                            <option value="Par mois" selected>Par mois</option>
+                            {% else %}
+                            <option value="Par mois">Par mois</option>
+                            {% endif %}
+                            {% if offre.type_paiement == 'Par an' %}
+                            <option value="Par an" selected>Par an</option>
+                            {% else %}
+                            <option value="Par an">Par an</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(1)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="goToStep(3)">Suivant</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-3">
+                <div class="step-title">
+                    <h2>Localisation</h2>
+                    <p>Où se trouve le poste ?</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="ville">
+                        Pays et Ville<span class="required">*</span>
+                        <span class="label-hint">Indiquez le pays et la ville où le candidat devra travailler. Vous pouvez indiquer plusieurs localisations (Ex: Cameroun Douala, Cameroun Yaoundé)</span>
+                    </label>
+                    <input type="text" id="ville" name="ville" value="{{offre.ville}}" placeholder="Ex: Cameroun Douala" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(2)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="goToStep(4)">Suivant</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-4">
+                <div class="step-title">
+                    <h2>Image de l'Offre</h2>
+                    <p>Ajoutez une image pour rendre votre offre plus attractive</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">
+                        Image de l'Offre<span class="optional">(optionnel)</span>
+                        <span class="label-hint">Une image attrayante peut augmenter l'engagement des candidats. Choisissez une photo professionnelle ou le logo de votre entreprise</span>
+                    </label>
+                    <label for="image" class="file-upload-area" id="fileUploadArea">
+                        <input type="file" id="image" name="image" value="{{offre.image}}" accept="image/*">
+                        <div class="file-upload-content">
+                            <div class="file-upload-icon">📸</div>
+                            <div class="file-upload-text" id="uploadText">Cliquez pour ajouter une image</div>
+                            <div class="file-upload-hint">Format: JPG, PNG (Max 5 MB)</div>
+                        </div>
+                    </label>
+                    <div class="file-preview" id="filePreview">
+                        <img id="previewImg" src="" alt="Aperçu">
+                        <div class="file-preview-info">
+                            <div class="file-preview-name" id="previewName"></div>
+                            <div class="file-preview-size" id="previewSize"></div>
+                        </div>
+                        <button type="button" class="file-preview-remove" id="removeFile">Supprimer</button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(3)">Précédent</button>
+                    <button type="submit" class="btn btn-primary">Publier l'Offre Modifier</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script>
-        const form = document.getElementById('offreForm');
-        const progressBar = document.getElementById('progressBar');
-        const titreInput = document.getElementById('titre');
-        const descriptionInput = document.getElementById('description');
-        const salaireInput = document.getElementById('salaire');
-        const villeInput = document.getElementById('ville');
-        const imageInput = document.getElementById('image');
-        const charCounter = document.getElementById('charCounter');
-        const fileLabel = document.getElementById('fileLabel');
-        const fileLabelText = document.getElementById('fileLabelText');
-        const filePreview = document.getElementById('filePreview');
-        const previewImage = document.getElementById('previewImage');
-        const fileName = document.getElementById('fileName');
-        const fileSize = document.getElementById('fileSize');
-        const removeFileBtn = document.getElementById('removeFile');
-
-        const requiredFields = [titreInput, descriptionInput, salaireInput, villeInput, imageInput];
+        let currentStep = 0;
+        const totalSteps = 5;
         let selectedFile = null;
 
-        function updateProgress() {
-            let filledFields = 0;
-            requiredFields.forEach(field => {
-                if (field.type === 'file') {
-                    if (selectedFile) filledFields++;
-                } else if (field.value.trim() !== '') {
-                    filledFields++;
+        function updateIndicators() {
+            for (let i = 0; i < totalSteps; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                dot.classList.remove('active', 'completed');
+
+                if (i < currentStep) {
+                    dot.classList.add('completed');
+                } else if (i === currentStep) {
+                    dot.classList.add('active');
+                }
+            }
+        }
+
+        function validateCurrentStep() {
+            const step = document.getElementById(`step-${currentStep}`);
+            const requiredInputs = step.querySelectorAll('input[required], textarea[required], select[required]');
+            let isValid = true;
+
+            requiredInputs.forEach(input => {
+                if (!input.value.trim() || !input.checkValidity()) {
+                    isValid = false;
+                    input.classList.add('shake');
+                    input.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        input.classList.remove('shake');
+                    }, 400);
                 }
             });
-            const progress = (filledFields / requiredFields.length) * 100;
-            progressBar.style.width = progress + '%';
+
+            return isValid;
         }
 
-        function validateField(input, iconId) {
-            const icon = document.getElementById(iconId);
-            if (input.value.trim() !== '' && input.checkValidity()) {
-                icon.classList.remove('invalid');
-                icon.classList.add('valid');
-                input.style.borderColor = '#10b981';
-            } else if (input.value.trim() !== '') {
-                icon.classList.remove('valid');
-                icon.classList.add('invalid');
-                input.style.borderColor = '#ef4444';
-            } else {
-                icon.classList.remove('valid', 'invalid');
-                input.style.borderColor = '#e2e8f0';
+        function goToStep(stepNumber) {
+            if (currentStep > 0 && stepNumber > currentStep && !validateCurrentStep()) {
+                alert('Veuillez remplir tous les champs obligatoires avant de continuer.');
+                return;
             }
+
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = stepNumber;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateIndicators();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
-        titreInput.addEventListener('input', () => {
-            validateField(titreInput, 'titreIcon');
-            updateProgress();
-        });
-
-        descriptionInput.addEventListener('input', function() {
-            const length = this.value.length;
-            const maxLength = 500;
-            charCounter.textContent = `${length} / ${maxLength} caractères`;
-
-            if (length > maxLength * 0.9) {
-                charCounter.classList.add('warning');
-            } else {
-                charCounter.classList.remove('warning');
-            }
-
-            if (length >= maxLength) {
-                charCounter.classList.add('danger');
-                this.value = this.value.substring(0, maxLength);
-            } else {
-                charCounter.classList.remove('danger');
-            }
-
-            updateProgress();
-        });
-
-        salaireInput.addEventListener('input', () => {
-            validateField(salaireInput, 'salaireIcon');
-            updateProgress();
-        });
-
-        villeInput.addEventListener('input', () => {
-            validateField(villeInput, 'villeIcon');
-            updateProgress();
-        });
+        const imageInput = document.getElementById('image');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const uploadText = document.getElementById('uploadText');
+        const filePreview = document.getElementById('filePreview');
+        const previewImg = document.getElementById('previewImg');
+        const previewName = document.getElementById('previewName');
+        const previewSize = document.getElementById('previewSize');
+        const removeFileBtn = document.getElementById('removeFile');
 
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
 
             if (file) {
                 if (file.size > 5 * 1024 * 1024) {
-                    alert('⚠️ Le fichier est trop volumineux. Maximum 5 MB.');
+                    alert('Le fichier est trop volumineux. Taille maximale : 5 MB');
                     this.value = '';
                     return;
                 }
 
                 if (!file.type.startsWith('image/')) {
-                    alert('⚠️ Veuillez sélectionner une image valide.');
+                    alert('Veuillez sélectionner une image valide.');
                     this.value = '';
                     return;
                 }
 
                 selectedFile = file;
-                fileLabel.classList.add('has-file');
-                fileLabelText.textContent = '✓ Image sélectionnée';
+                fileUploadArea.classList.add('has-file');
+                uploadText.textContent = '✓ Image sélectionnée';
 
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    previewImage.src = e.target.result;
-                    fileName.textContent = file.name;
-                    fileSize.textContent = (file.size / 1024).toFixed(1) + ' KB';
+                    previewImg.src = e.target.result;
+                    previewName.textContent = file.name;
+                    previewSize.textContent = (file.size / 1024).toFixed(1) + ' KB';
                     filePreview.classList.add('show');
                 };
                 reader.readAsDataURL(file);
-
-                updateProgress();
             }
         });
 
         removeFileBtn.addEventListener('click', function() {
             imageInput.value = '';
             selectedFile = null;
-            fileLabel.classList.remove('has-file');
-            fileLabelText.textContent = 'Cliquez pour importer une image';
+            fileUploadArea.classList.remove('has-file');
+            uploadText.textContent = 'Cliquez pour ajouter une image';
             filePreview.classList.remove('show');
-            updateProgress();
         });
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            let isValid = true;
-            requiredFields.forEach(field => {
-                if (field.type === 'file') {
-                    if (!selectedFile) {
-                        isValid = false;
-                        fileLabel.classList.add('shake');
-                        setTimeout(() => fileLabel.classList.remove('shake'), 400);
-                    }
-                } else if (field.value.trim() === '' || !field.checkValidity()) {
-                    isValid = false;
-                    field.classList.add('shake');
-                    field.style.borderColor = '#ef4444';
-                    setTimeout(() => {
-                        field.classList.remove('shake');
-                    }, 400);
-                }
-            });
-
-            if (isValid) {
-                const submitBtn = document.getElementById('submitBtn');
-                submitBtn.innerHTML = '<span>⏳ Publication en cours...</span>';
-                submitBtn.disabled = true;
-
-                setTimeout(() => {
-                    this.submit();
-                }, 500);
-            } else {
-                alert('⚠️ Veuillez remplir tous les champs requis correctement.');
+        document.getElementById('offreForm').addEventListener('submit', function(e) {
+            if (!validateCurrentStep()) {
+                e.preventDefault();
+                alert('Veuillez remplir tous les champs obligatoires avant de soumettre.');
             }
         });
 
-        requiredFields.forEach(field => {
-            field.addEventListener('blur', () => {
-                if (field.value.trim() !== '') {
-                    field.style.borderColor = field.checkValidity() ? '#10b981' : '#ef4444';
-                }
+        const allInputs = document.querySelectorAll('input, textarea, select');
+        allInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#059669';
             });
 
-            field.addEventListener('focus', () => {
-                field.style.borderColor = '#0f766e';
+            input.addEventListener('blur', function() {
+                if (this.value.trim() !== '') {
+                    this.style.borderColor = this.checkValidity() ? '#10b981' : '#ef4444';
+                } else {
+                    this.style.borderColor = '#e5e7eb';
+                }
             });
         });
 
-        updateProgress();
+        updateIndicators();
     </script>
 </body>
 

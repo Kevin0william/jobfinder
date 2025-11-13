@@ -9,8 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="manifest" href="{% static 'app/manifest.json' %}">
-    <meta name="theme-color" content="#0b0d20">
     <link rel="apple-touch-icon" href="{% static 'app/icons/jobfinder.jpg' %}">
 
     <style>
@@ -454,18 +452,14 @@
             </nav>
         </div>
     </header>
-
     <div class="hero">
-        <h1>Trouvez votre <span>opportunitée</span> au Cameroun</h1>
+        <h1>Trouvez une <span>opportunité professionnelle</span> en Afrique</h1>
 
         <p>
-            JobFinder est la plateforme numérique innovante qui connecte les talents camerounais avec des opportunités professionnelles et commerciales dans tout le territoire national.
+            JobFinder est une plateforme numérique qui facilite la recherche d’emploi et la mise en relation professionnelle en Afrique. Publiez des offres, créez votre CV et maximisez vos chances d’être recruté.
         </p>
-
-        <button id="installBtn" class="install-button" style="display:none;">
-        <i class="fa-solid fa-download"></i> Installer l'application
-    </button>
     </div>
+
 
     <main class="main-content">
         <section class="mission-section">
@@ -474,14 +468,15 @@
                 <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
                     <h3>Accessibilité pour Tous</h3>
-                    <p>JobFinder démocratise l'accès à l'emploi au Cameroun. Notre plateforme permet à chaque citoyen, quel que soit son niveau ou sa localisation, de découvrir facilement des opportunités professionnelles adaptées à ses compétences et aspirations.</p>
+                    <p>JobFinder démocratise l'accès à l'emploi. Notre plateforme permet à chaque citoyen, quel que soit son niveau ou sa localisation, de découvrir facilement des opportunités professionnelles adaptées à ses compétences et aspirations.</p>
                 </div>
 
                 <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-earth-africa"></i></div>
-                    <h3>Couverture Nationale</h3>
-                    <p>De Douala à Maroua, de Yaoundé à Bamenda, JobFinder couvre l'ensemble du territoire camerounais. Nous connectons les employeurs et les chercheurs d'emploi dans toutes les régions pour favoriser le développement économique local.</p>
+                    <h3>Présent en Afrique</h3>
+                    <p>Notre plateforme relie les talents et les employeurs à travers toute l'Afrique. Que vous soyez au Cameroun, en Côte d'Ivoire, au Sénégal, au Maroc… vous avez votre place sur JobFinder.</p>
                 </div>
+
 
                 <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
@@ -509,16 +504,23 @@
                 </div>
 
                 <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-id-card"></i></div>
+                    <h3>Créez et Montrez Votre CV</h3>
+                    <p>Donnez de la visibilité à votre parcours. Créez votre CV en ligne, publiez-le sur la plateforme, et laissez les recruteurs vous contacter directement.</p>
+                </div>
+
+
+                <!-- <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-store"></i></div>
                     <h3>Vendez vos Produits</h3>
                     <p>Entrepreneurs, vendeurs et revendeurs, présentez vos produits librement ! JobFinder vous offre une vitrine pour développer votre commerce, atteindre de nouveaux clients et faire croître votre activité entrepreneuriale.</p>
-                </div>
+                </div> -->
             </div>
         </section>
 
         <section class="cta-section">
             <h2>Rejoignez JobFinder Aujourd'hui</h2>
-            <p>Créez votre compte gratuitement et accédez à des milliers d'opportunités professionnelles et commerciales à travers le Cameroun. Votre prochaine opportunité vous attend !</p>
+            <p>Créez votre compte gratuitement et accédez à des milliers d'opportunités professionnelles et commerciales à travers le monde. Votre prochaine opportunité vous attend !</p>
             <div class="cta-buttons">
                 <a href="{% url 'inscription' %}" class="btn btn-primary">S'inscrire Gratuitement</a>
                 <a href="{% url 'connexion' %}" class="btn btn-secondary">Se connecter</a>
@@ -527,52 +529,10 @@
     </main>
 
     <footer>
-        <p><strong>JobFinder</strong> - Votre partenaire emploi et commerce au Cameroun</p>
-        <p>&copy; 2025 JobFinder. Tous droits réservés.</p>
+        <p><strong>JobFinder</strong> - Votre partenaire emploi </p>
+
+        <p>MKW &copy; 2025 JobFinder. Tous droits réservés.</p>
     </footer>
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("{% static 'app/js/service-worker.js' %}")
-                    .then(reg => console.log("Service Worker enregistré ✅", reg))
-                    .catch(err => console.log("Erreur SW ❌", err));
-            });
-        }
-        let deferredPrompt;
-        const installBtn = document.getElementById('installBtn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Empêche l'apparition automatique du pop-up install PWA
-            e.preventDefault();
-            deferredPrompt = e;
-
-            // Affiche ton bouton
-            installBtn.style.display = 'block';
-
-            installBtn.addEventListener('click', async() => {
-                // Cache le bouton après click
-                installBtn.style.display = 'none';
-
-                // Déclenche le vrai prompt d'installation
-                deferredPrompt.prompt();
-
-                const {
-                    outcome
-                } = await deferredPrompt.userChoice;
-                console.log('Résultat installation :', outcome);
-
-                // Reset
-                deferredPrompt = null;
-            });
-        });
-
-        // Optionnel : cacher le bouton si déjà installé
-        window.addEventListener('appinstalled', () => {
-            console.log('PWA installée !');
-            installBtn.style.display = 'none';
-        });
-    </script>
-
 </body>
 
 </html>
