@@ -70,7 +70,6 @@ def accueil(request):
     query = request.GET.get('q')
     if query :
         offres = Offre.objects.filter(
-            Q(createur__icontains=query)|
             Q(titre__icontains=query)|
             Q(ville__icontains=query)
         ).order_by('-date_creation')
