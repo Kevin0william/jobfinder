@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - JobFinder</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -131,15 +132,22 @@
         }
         
         .assistant-avatar {
-            width: 50px;
-            height: 50px;
-            background: white;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #0a84ff, #003566);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0, 100, 255, 0.4);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .assistant-avatar:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(0, 100, 255, 0.55);
         }
         
         .assistant-name {
@@ -454,7 +462,10 @@
 
         <div class="assistant-card">
             <div class="assistant-header">
-                <div class="assistant-avatar">🤖</div>
+                <div class="assistant-avatar">
+                    <i class="ri-robot-2-line"></i>
+                </div>
+
                 <div class="assistant-name">JobFinder Assistant</div>
             </div>
             <div class="assistant-message" id="assistantMessage">
