@@ -347,6 +347,61 @@
                 font-size: 1.5rem;
             }
         }
+        /* Zone de texte modernisée */
+        
+        .form-group textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 1rem 1.2rem;
+            resize: vertical;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0284c7;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.1);
+            transform: translateY(-1px);
+        }
+        /* Nouveau bouton d’envoi */
+        
+        .send-btn {
+            padding: 1.1rem;
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        
+        .send-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(3, 105, 161, 0.35);
+        }
+        
+        .send-btn:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -371,37 +426,36 @@
             <p>Informer les utilisateurs d'information capital</p>
         </div>
 
-        <form method="post" id="connexionForm">
+        <form method="post" id="sendNoteForm">
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="username">Message</label>
-                <input type="text" name="message" required autocomplete="off">
-                <button type="submit">Envoyer</button>
+                <label for="message">Message à envoyer</label>
+                <textarea name="message" id="message" placeholder="Écrivez ici votre note destinée à tous les utilisateurs..." required></textarea>
             </div>
+
+            <button type="submit" class="send-btn">
+                 <i class="ri-send-plane-2-line"></i> Envoyer la notification
+            </button>
+
+        </form>
+
     </div>
 
     <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
+        const form = document.getElementById("sendNoteForm");
+        const messageBox = document.getElementById("message");
 
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️' : '🔒';
+        form.addEventListener("submit", () => {
+            form.classList.add("sending");
         });
 
-        const form = document.getElementById('connexionForm');
-        const inputs = form.querySelectorAll('input');
+        messageBox.addEventListener("focus", () => {
+            messageBox.style.transform = "scale(1.01)";
+        });
 
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.01)';
-            });
-
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
-            });
+        messageBox.addEventListener("blur", () => {
+            messageBox.style.transform = "scale(1)";
         });
     </script>
 </body>

@@ -23,15 +23,14 @@
             position: relative;
             overflow-x: hidden;
             padding: 2rem;
-            /* animation: float 10s ease-in-out infinite reverse; */
         }
-        /*         
+        
         body::before {
             content: '';
             position: absolute;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
             border-radius: 50%;
             top: -250px;
             right: -250px;
@@ -48,7 +47,7 @@
             bottom: -200px;
             left: -200px;
             animation: float 10s ease-in-out infinite reverse;
-        } */
+        }
         
         @keyframes float {
             0%,
@@ -56,7 +55,7 @@
                 transform: translate(0, 0) scale(1);
             }
             50% {
-                transform: translate(5px, 5px) scale(1.1);
+                transform: translate(20px, 20px) scale(1.05);
             }
         }
         
@@ -65,7 +64,7 @@
             border-radius: 24px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 480px;
+            max-width: 550px;
             padding: 3rem;
             position: relative;
             z-index: 1;
@@ -102,34 +101,378 @@
             background-clip: text;
         }
         
-        .logo p {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-        
-        .form-title {
-            text-align: center;
+        .assistant-card {
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
             margin-bottom: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(3, 105, 161, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
-        .form-title h2 {
-            font-size: 1.8rem;
-            color: #0c4a6e;
+        .assistant-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .assistant-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .assistant-avatar {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .assistant-name {
+            font-size: 1.2rem;
             font-weight: 700;
+        }
+        
+        .assistant-message {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 0;
+        }
+        
+        .step-progress {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #0369a1, #0284c7);
+            transition: width 0.4s ease;
+            z-index: 1;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #94a3b8;
+            transition: all 0.3s ease;
             margin-bottom: 0.5rem;
         }
         
-        .form-title p {
-            color: #64748b;
-            font-size: 0.9rem;
+        .step.active .step-circle {
+            background: linear-gradient(135deg, #0369a1, #0284c7);
+            color: white;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.4);
+            transform: scale(1.1);
         }
         
-        .message {
+        .step.completed .step-circle {
+            background: #10b981;
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .form-step {
+            display: none;
+            animation: fadeInStep 0.4s ease;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        @keyframes fadeInStep {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.6rem;
+        }
+        
+        .label-description {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #64748b;
+            margin-top: 0.3rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0369a1;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+        
+        .input-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .input-hint.success {
+            color: #10b981;
+        }
+        
+        .input-hint.error {
+            color: #ef4444;
+        }
+        
+        .password-requirements {
+            margin-top: 0.8rem;
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        
+        .password-requirements p {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 0.4rem;
+        }
+        
+        .requirement.met {
+            color: #10b981;
+        }
+        
+        .requirement-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+        }
+        
+        .requirement.met .requirement-icon {
+            background: #10b981;
+        }
+        
+        .strength-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-top: 0.8rem;
+            overflow: hidden;
+        }
+        
+        .strength-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #ef4444;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-bar-fill.weak {
+            background: #ef4444;
+            width: 33%;
+        }
+        
+        .strength-bar-fill.medium {
+            background: #f59e0b;
+            width: 66%;
+        }
+        
+        .strength-bar-fill.strong {
+            background: #10b981;
+            width: 100%;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(3, 105, 161, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .choice-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .choice-btn {
+            padding: 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .choice-btn:hover {
+            border-color: #0369a1;
+            background: #f0f9ff;
+            transform: translateX(5px);
+        }
+        
+        .choice-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0369a1, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .choice-content h3 {
+            font-size: 1.1rem;
+            color: #0c4a6e;
+            margin-bottom: 0.3rem;
+        }
+        
+        .choice-content p {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .django-messages {
             padding: 1rem;
             border-radius: 12px;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
-            text-align: center;
             animation: fadeIn 0.4s ease;
         }
         
@@ -154,135 +497,6 @@
             border: 1px solid #a7f3d0;
         }
         
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .form-group {
-            position: relative;
-        }
-        
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-            background: #f8fafc;
-            color: #1e293b;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #0369a1;
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.1);
-        }
-        
-        .form-group input:focus+label {
-            color: #0369a1;
-        }
-        
-        .form-group input::placeholder {
-            color: #94a3b8;
-        }
-        
-        .password-strength {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-        
-        .strength-bar {
-            height: 4px;
-            background: #e2e8f0;
-            border-radius: 2px;
-            margin-top: 0.3rem;
-            overflow: hidden;
-        }
-        
-        .strength-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
-            transition: width 0.3s ease;
-        }
-        
-        button[type="submit"] {
-            padding: 1.1rem;
-            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
-            margin-top: 0.5rem;
-        }
-        
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(3, 105, 161, 0.4);
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-        }
-        
-        button[type="submit"]:active {
-            transform: translateY(0);
-        }
-        
-        .form-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .form-footer p {
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
-        }
-        
-        .form-footer a {
-            color: #0369a1;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-        
-        .form-footer a:hover {
-            color: #0284c7;
-            background: rgba(3, 105, 161, 0.05);
-        }
-        
-        .input-icon {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 1.2rem;
-            pointer-events: none;
-        }
-        
         @media (max-width: 640px) {
             .container {
                 padding: 2rem 1.5rem;
@@ -290,8 +504,11 @@
             .logo h1 {
                 font-size: 2rem;
             }
-            .form-title h2 {
-                font-size: 1.5rem;
+            .step-indicator {
+                display: none;
+            }
+            .button-group {
+                flex-direction: column;
             }
         }
     </style>
@@ -301,83 +518,362 @@
     <div class="container">
         <div class="logo">
             <h1>Job<span>Finder</span></h1>
-            <p>Votre partenaire emploi en Afrique</p>
         </div>
 
-        <div class="form-title">
-            <h2>Créer votre compte</h2>
-            <p>Rejoignez des milliers de professionnels </p>
+        <div class="assistant-card">
+            <div class="assistant-header">
+                <div class="assistant-avatar">🤖</div>
+                <div class="assistant-name">JobFinder Assistant</div>
+            </div>
+            <div class="assistant-message" id="assistantMessage">
+                Bonjour et bienvenue sur JobFinder ! Je suis votre assistante virtuelle et je vais vous accompagner pour créer votre compte professionnel en quelques étapes simples. Ensemble, nous allons configurer votre profil pour vous permettre d'accéder aux meilleures
+                opportunités d'emploi en Afrique.
+            </div>
         </div>
 
         {% if messages %} {% for message in messages %}
-        <div class="message {% if message.tags %}{{ message.tags }}-message{% endif %}">
+        <div class="django-messages {% if message.tags %}{{ message.tags }}-message{% endif %}">
             {{ message }}
         </div>
         {% endfor %} {% endif %}
 
+        <div class="step-indicator">
+            <div class="step-progress" id="stepProgress"></div>
+            <div class="step active" data-step="0">
+                <div class="step-circle">1</div>
+                <div class="step-label">Choix</div>
+            </div>
+            <div class="step" data-step="1">
+                <div class="step-circle">2</div>
+                <div class="step-label">Identité</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-circle">3</div>
+                <div class="step-label">Email</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-circle">4</div>
+                <div class="step-label">Sécurité</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-circle">5</div>
+                <div class="step-label">Confirmation</div>
+            </div>
+        </div>
+
         <form method="post" id="inscriptionForm">
             {% csrf_token %}
 
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="Choisissez votre nom d'utilisateur" required autocomplete="username">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Adresse email</label>
-                <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required autocomplete="email">
-            </div>
-
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Créez un mot de passe sécurisé" required autocomplete="new-password">
-                <div class="password-strength">
-                    <div class="strength-bar">
-                        <div class="strength-bar-fill" id="strengthBar"></div>
-                    </div>
+            <div class="form-step active" data-step="0">
+                <div class="choice-buttons">
+                    <button type="button" class="choice-btn" onclick="nextStep()">
+                        <div class="choice-icon">✏️</div>
+                        <div class="choice-content">
+                            <h3>Créer un nouveau compte</h3>
+                            <p>Rejoignez JobFinder et accédez à des milliers d'opportunités</p>
+                        </div>
+                    </button>
+                    <a href="{% url 'connexion' %}" style="text-decoration: none;">
+                        <button type="button" class="choice-btn">
+                            <div class="choice-icon">🔐</div>
+                            <div class="choice-content">
+                                <h3>J'ai déjà un compte</h3>
+                                <p>Connectez-vous pour accéder à votre espace personnel</p>
+                            </div>
+                        </button>
+                    </a>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="confirm">Confirmer le mot de passe</label>
-                <input type="password" id="confirm" name="confirm" placeholder="Confirmez votre mot de passe" required autocomplete="new-password">
+            <div class="form-step" data-step="1">
+                <div class="form-group">
+                    <label for="username">
+                        Nom d'utilisateur
+                        <span class="label-description">Choisissez un identifiant unique qui vous représentera sur JobFinder. Ce nom sera visible par les recruteurs.</span>
+                    </label>
+                    <input type="text" id="username" name="username" placeholder="Ex: jean_dupont ou jean.dupont" autocomplete="username">
+                    <div class="input-hint" id="usernameHint">
+                        💡 Votre nom d'utilisateur doit être unique et contenir entre 3 et 20 caractères
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Retour</button>
+                    <button type="button" class="btn btn-primary" onclick="validateUsername()">Continuer</button>
+                </div>
             </div>
 
-            <button type="submit">Créer mon compte</button>
-        </form>
+            <div class="form-step" data-step="2">
+                <div class="form-group">
+                    <label for="email">
+                        Adresse e-mail professionnelle
+                        <span class="label-description">Veuillez entrer une adresse e-mail valide. Nous l'utiliserons pour les notifications importantes et la récupération de votre compte.</span>
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" autocomplete="email">
+                    <div class="input-hint" id="emailHint">
+                        💡 Assurez-vous d'avoir accès à cette adresse e-mail
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Retour</button>
+                    <button type="button" class="btn btn-primary" onclick="validateEmail()">Continuer</button>
+                </div>
+            </div>
 
-        <div class="form-footer">
-            <p>Vous avez déjà un compte ?</p>
-            <a href="{% url 'connexion' %}">Se connecter</a>
-        </div>
+            <div class="form-step" data-step="3">
+                <div class="form-group">
+                    <label for="password">
+                        Mot de passe sécurisé
+                        <span class="label-description">Créez un mot de passe robuste pour protéger votre compte. Suivez les recommandations ci-dessous.</span>
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="Entrez un mot de passe sécurisé" autocomplete="new-password">
+                    <div class="strength-bar">
+                        <div class="strength-bar-fill" id="strengthBar"></div>
+                    </div>
+                    <div class="password-requirements">
+                        <p>Votre mot de passe doit contenir :</p>
+                        <div class="requirement" id="req-length">
+                            <span class="requirement-icon">✓</span>
+                            <span>Au moins 8 caractères</span>
+                        </div>
+                        <div class="requirement" id="req-letter">
+                            <span class="requirement-icon">✓</span>
+                            <span>Au moins une lettre (majuscule ou minuscule)</span>
+                        </div>
+                        <div class="requirement" id="req-number">
+                            <span class="requirement-icon">✓</span>
+                            <span>Au moins un chiffre (0-9)</span>
+                        </div>
+                        <div class="requirement" id="req-special">
+                            <span class="requirement-icon">✓</span>
+                            <span>Au moins un caractère spécial (@, #, $, !, etc.)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Retour</button>
+                    <button type="button" class="btn btn-primary" id="passwordNextBtn" onclick="validatePassword()" disabled>Continuer</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="4">
+                <div class="form-group">
+                    <label for="confirm">
+                        Confirmation du mot de passe
+                        <span class="label-description">Pour votre sécurité, veuillez saisir à nouveau votre mot de passe. Cela nous permet de vérifier que vous le maîtrisez parfaitement.</span>
+                    </label>
+                    <input type="password" id="confirm" name="confirm" placeholder="Confirmez votre mot de passe" autocomplete="new-password">
+                    <div class="input-hint" id="confirmHint">
+                        💡 Assurez-vous que les deux mots de passe correspondent exactement
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Retour</button>
+                    <button type="submit" class="btn btn-primary">✅ Créer mon compte JobFinder</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script>
-        const passwordInput = document.getElementById('password');
-        const strengthBar = document.getElementById('strengthBar');
+        let currentStep = 0;
+        const totalSteps = 5;
+        let passwordValid = false;
 
-        passwordInput.addEventListener('input', function() {
-            const password = this.value;
-            let strength = 0;
+        const messages = {
+            0: "Bonjour et bienvenue sur JobFinder ! Je suis votre assistante virtuelle et je vais vous accompagner pour créer votre compte professionnel en quelques étapes simples. Que souhaitez-vous faire ?",
+            1: "Parfait ! Commençons par faire les présentations. Quel nom d'utilisateur souhaitez-vous utiliser ? N'oubliez pas qu'il doit être unique et vous représenter professionnellement.",
+            2: "Excellent choix de nom ! Maintenant, veuillez me communiquer votre adresse e-mail. Elle servira pour les communications importantes et la sécurité de votre compte.",
+            3: "Parfait ! Passons maintenant à la sécurité de votre compte. Définissez un mot de passe robuste qui contient au moins une lettre, un chiffre et un caractère spécial. Votre sécurité est notre priorité !",
+            4: "Presque terminé ! Pour finaliser, j'ai besoin que vous confirmiez votre mot de passe. Cela me permet de vérifier que vous le maîtrisez parfaitement et éviter toute erreur de frappe."
+        };
 
-            if (password.length >= 6) strength += 25;
-            if (password.length >= 10) strength += 25;
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
-            if (/\d/.test(password) && /[^a-zA-Z\d]/.test(password)) strength += 25;
+        function updateStepIndicator() {
+            const steps = document.querySelectorAll('.step');
+            const progress = document.getElementById('stepProgress');
 
-            strengthBar.style.width = strength + '%';
+            steps.forEach((step, index) => {
+                const circle = step.querySelector('.step-circle');
+                step.classList.remove('active', 'completed');
+
+                if (index < currentStep) {
+                    step.classList.add('completed');
+                    circle.textContent = '✓';
+                } else if (index === currentStep) {
+                    step.classList.add('active');
+                    circle.textContent = index + 1;
+                } else {
+                    circle.textContent = index + 1;
+                }
+            });
+
+            const progressWidth = (currentStep / (totalSteps - 1)) * 100;
+            progress.style.width = progressWidth + '%';
+        }
+
+        function updateAssistantMessage() {
+            document.getElementById('assistantMessage').textContent = messages[currentStep];
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps - 1) {
+                document.querySelectorAll('.form-step')[currentStep].classList.remove('active');
+                currentStep++;
+                document.querySelectorAll('.form-step')[currentStep].classList.add('active');
+                updateStepIndicator();
+                updateAssistantMessage();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                document.querySelectorAll('.form-step')[currentStep].classList.remove('active');
+                currentStep--;
+                document.querySelectorAll('.form-step')[currentStep].classList.add('active');
+                updateStepIndicator();
+                updateAssistantMessage();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function validateUsername() {
+            const username = document.getElementById('username').value.trim();
+            const hint = document.getElementById('usernameHint');
+
+            if (username.length < 3) {
+                hint.textContent = '❌ Le nom d\'utilisateur doit contenir au moins 3 caractères';
+                hint.className = 'input-hint error';
+                return;
+            }
+
+            if (username.length > 20) {
+                hint.textContent = '❌ Le nom d\'utilisateur ne peut pas dépasser 20 caractères';
+                hint.className = 'input-hint error';
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9._-]+$/.test(username)) {
+                hint.textContent = '❌ Utilisez uniquement des lettres, chiffres, points, tirets ou underscores';
+                hint.className = 'input-hint error';
+                return;
+            }
+
+            hint.textContent = '✅ Excellent choix de nom d\'utilisateur !';
+            hint.className = 'input-hint success';
+            nextStep();
+        }
+
+        function validateEmail() {
+            const email = document.getElementById('email').value.trim();
+            const hint = document.getElementById('emailHint');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                hint.textContent = '❌ Veuillez entrer une adresse e-mail valide';
+                hint.className = 'input-hint error';
+                return;
+            }
+
+            hint.textContent = '✅ Adresse e-mail validée !';
+            hint.className = 'input-hint success';
+            nextStep();
+        }
+
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthBar = document.getElementById('strengthBar');
+            const nextBtn = document.getElementById('passwordNextBtn');
+
+            const requirements = {
+                length: password.length >= 8,
+                letter: /[a-zA-Z]/.test(password),
+                number: /\d/.test(password),
+                special: /[^a-zA-Z0-9]/.test(password)
+            };
+
+            document.getElementById('req-length').classList.toggle('met', requirements.length);
+            document.getElementById('req-letter').classList.toggle('met', requirements.letter);
+            document.getElementById('req-number').classList.toggle('met', requirements.number);
+            document.getElementById('req-special').classList.toggle('met', requirements.special);
+
+            const metCount = Object.values(requirements).filter(Boolean).length;
+
+            strengthBar.classList.remove('weak', 'medium', 'strong');
+            if (metCount === 4) {
+                strengthBar.classList.add('strong');
+                passwordValid = true;
+                nextBtn.disabled = false;
+            } else if (metCount >= 2) {
+                strengthBar.classList.add('medium');
+                passwordValid = false;
+                nextBtn.disabled = true;
+            } else if (metCount >= 1) {
+                strengthBar.classList.add('weak');
+                passwordValid = false;
+                nextBtn.disabled = true;
+            } else {
+                strengthBar.style.width = '0%';
+                passwordValid = false;
+                nextBtn.disabled = true;
+            }
+        }
+
+        function validatePassword() {
+            if (passwordValid) {
+                nextStep();
+            }
+        }
+
+        document.getElementById('password').addEventListener('input', checkPasswordStrength);
+
+        document.getElementById('confirm').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirm = this.value;
+            const hint = document.getElementById('confirmHint');
+
+            if (confirm && password !== confirm) {
+                hint.textContent = '❌ Les mots de passe ne correspondent pas';
+                hint.className = 'input-hint error';
+            } else if (confirm && password === confirm) {
+                hint.textContent = '✅ Les mots de passe correspondent !';
+                hint.className = 'input-hint success';
+            } else {
+                hint.textContent = '💡 Assurez-vous que les deux mots de passe correspondent exactement';
+                hint.className = 'input-hint';
+            }
         });
 
-        const form = document.getElementById('inscriptionForm');
-        form.addEventListener('submit', function(e) {
+        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
             const password = document.getElementById('password').value;
             const confirm = document.getElementById('confirm').value;
 
             if (password !== confirm) {
                 e.preventDefault();
-                alert('Les mots de passe ne correspondent pas !');
+                const hint = document.getElementById('confirmHint');
+                hint.textContent = '❌ Les mots de passe ne correspondent pas. Veuillez réessayer.';
+                hint.className = 'input-hint error';
+                return false;
+            }
+
+            if (!passwordValid) {
+                e.preventDefault();
+                alert('Votre mot de passe ne respecte pas tous les critères de sécurité. Veuillez le modifier.');
+                currentStep = 3;
+                document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+                document.querySelectorAll('.form-step')[currentStep].classList.add('active');
+                updateStepIndicator();
+                updateAssistantMessage();
+                return false;
             }
         });
+
+        updateStepIndicator();
     </script>
 </body>
 
