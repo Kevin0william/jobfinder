@@ -26,40 +26,6 @@
             padding: 2rem;
         }
         
-        body::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            top: -250px;
-            right: -250px;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        body::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            bottom: -200px;
-            left: -200px;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-        
-        @keyframes float {
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(20px, 20px) scale(1.05);
-            }
-        }
-        
         .container {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
