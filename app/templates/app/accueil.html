@@ -603,9 +603,9 @@
             {% if offres.count == 0 %}
             <li>Aucune offre disponible <a href="{% url 'creation_offre' %}"><i class="ri-add-box-line"></i> Créer une offre</a></li>
             {% elif offres.count == 1 %}
-            <li>Consultez l'offre <a href="{% url 'creation_offre' %}"><i class="ri-add-box-line"></i> Créer une offre</a></li>
+            <li>Consultez cette offre <a href="{% url 'creation_offre' %}"><i class="ri-add-box-line"></i> Créer une offre</a></li>
             {% else %}
-            <li>Consultez toutes les {{offres.count}} offres <a href="{% url 'creation_offre' %}"><i class="ri-add-box-line"></i> Créer une offre</a></li>
+            <li>Consultez toutes les offres <a href="{% url 'creation_offre' %}"><i class="ri-add-box-line"></i> Créer une offre</a></li>
             {% endif %}
         </h2>
 

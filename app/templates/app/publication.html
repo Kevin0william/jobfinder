@@ -565,7 +565,7 @@
                 </div>
 
                 <div class="publication-body {{publication.style}}">
-                    {{ publication.message|linebreaksbr }}
+                    {{ publication.message||urlize|linebreaksbrbr }}
                 </div>
 
                 <div class="publication-footer">

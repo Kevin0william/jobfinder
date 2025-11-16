@@ -360,7 +360,7 @@
         <div class="messages-container" id="messagesContainer">
             {% if messages %} {% for message in messages %} {% if message.sender == request.user %}
             <div class="message sent" data-timestamp="{{ message.date.timestamp }}">
-                <div class="message-bubble">{{ message.message }}</div>
+                <div class="message-bubble">{{ message.message|urlize|linebreaksbr }}</div>
                 <div class="message-label">
                     <span class="message-time">{{message.date|date:"H:i"}}</span>
                 </div>

@@ -401,7 +401,7 @@
                     <div class="section">
                         <div class="section-title">Description</div>
                         <div class="box desc">
-                            {# note: champ 'desciption' selon ton formulaire #} {{ cv.description|default:"Aucune description fournie." }}
+                            {# note: champ 'desciption' selon ton formulaire #} {{ cv.description|default:"Aucune description fournie."|urlize|linebreaksbr }}
                         </div>
                     </div>
 

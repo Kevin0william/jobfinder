@@ -676,7 +676,7 @@
                 </div>
                 <div class="notif-content">
                     <div class="notif-message">
-                        <strong>Message de l'équipe Job<span style="color: #ffffff;">Finder</span> :</strong> {{ notif.message }}
+                        <strong>Message de l'équipe Job<span style="color: #ffffff;">Finder</span> :</strong> {{ notif.message|urlize|linebreaksbr }}
                     </div>
                 </div>
                 <div class="notif-footer">
@@ -702,7 +702,7 @@
                 </div>
                 <div class="notif-content">
                     <div class="notif-message">
-                        <strong>Message :</strong> {{ notif.message }}
+                        <strong>Message :</strong> {{ notif.message|urlize|linebreaksbr }}
                     </div>
                 </div>
                 <div class="notif-footer">
