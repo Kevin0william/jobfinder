@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - JobFinder</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -25,27 +24,114 @@
             overflow-x: hidden;
             padding: 2rem;
         }
+        /*         
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            left: -300px;
+            animation: pulse 6s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -250px;
+            right: -250px;
+            animation: pulse 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        } */
+        
+        .background-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        
+        .shape1 {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            right: 10%;
+            animation: float1 12s ease-in-out infinite;
+        }
+        
+        .shape2 {
+            width: 200px;
+            height: 200px;
+            bottom: 30%;
+            left: 15%;
+            animation: float2 10s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(30px, -30px) rotate(180deg);
+            }
+        }
+        
+        @keyframes float2 {
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(-40px, 40px) rotate(-180deg);
+            }
+        }
         
         .container {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 550px;
+            max-width: 460px;
             padding: 3rem;
             position: relative;
             z-index: 1;
             animation: slideIn 0.6s ease;
+            backdrop-filter: blur(10px);
         }
         
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         
@@ -59,6 +145,7 @@
             font-weight: 800;
             color: #0c4a6e;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
         }
         
         .logo h1 span {
@@ -68,169 +155,47 @@
             background-clip: text;
         }
         
-        .assistant-card {
-            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            color: white;
-            box-shadow: 0 10px 30px rgba(3, 105, 161, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .assistant-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        
-        .assistant-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .assistant-avatar {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0a84ff, #003566);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 28px;
-            box-shadow: 0 4px 15px rgba(0, 100, 255, 0.4);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        
-        .assistant-avatar:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 20px rgba(0, 100, 255, 0.55);
-        }
-        
-        .assistant-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        
-        .assistant-message {
+        .logo p {
+            color: #64748b;
             font-size: 0.95rem;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
+            font-weight: 500;
         }
         
-        .step-indicator {
-            display: flex;
-            justify-content: space-around;
+        .form-title {
+            text-align: center;
             margin-bottom: 2rem;
-            position: relative;
         }
         
-        .step-indicator::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: #e2e8f0;
-            z-index: 0;
-        }
-        
-        .step-progress {
-            position: absolute;
-            top: 20px;
-            left: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, #0369a1, #0284c7);
-            transition: width 0.4s ease;
-            z-index: 1;
-        }
-        
-        .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .step-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .form-title h2 {
+            font-size: 1.8rem;
+            color: #0c4a6e;
             font-weight: 700;
-            color: #94a3b8;
-            transition: all 0.3s ease;
             margin-bottom: 0.5rem;
         }
         
-        .step.active .step-circle {
-            background: linear-gradient(135deg, #0369a1, #0284c7);
-            color: white;
-            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.4);
-            transform: scale(1.1);
-        }
-        
-        .step.completed .step-circle {
-            background: #10b981;
-            color: white;
-        }
-        
-        .step-label {
-            font-size: 0.75rem;
+        .form-title p {
             color: #64748b;
-            font-weight: 500;
-            text-align: center;
+            font-size: 0.9rem;
         }
         
-        .form-step {
-            display: none;
-            animation: fadeInStep 0.4s ease;
-        }
-        
-        .form-step.active {
-            display: block;
-        }
-        
-        @keyframes fadeInStep {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .django-messages {
-            padding: 1rem;
+        .message {
+            padding: 1rem 1.2rem;
             border-radius: 12px;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
+            text-align: center;
             animation: fadeIn 0.4s ease;
+            font-weight: 500;
         }
         
         @keyframes fadeIn {
             from {
                 opacity: 0;
+                transform: translateY(-10px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
         
@@ -246,24 +211,23 @@
             border: 1px solid #a7f3d0;
         }
         
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
         .form-group {
-            margin-bottom: 1.5rem;
+            position: relative;
         }
         
         .form-group label {
             display: block;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: #334155;
-            margin-bottom: 0.6rem;
-        }
-        
-        .label-description {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: #64748b;
-            margin-top: 0.3rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
         
         .form-group input {
@@ -283,96 +247,53 @@
             border-color: #0369a1;
             background: #ffffff;
             box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .form-group input:focus~label {
+            color: #0369a1;
         }
         
         .form-group input::placeholder {
             color: #94a3b8;
         }
         
-        .password-container {
-            position: relative;
-        }
-        
         .password-toggle {
             position: absolute;
             right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 2.6rem;
             cursor: pointer;
             color: #94a3b8;
             transition: color 0.3s ease;
             font-size: 1.2rem;
-            padding: 0.5rem;
         }
         
         .password-toggle:hover {
             color: #0369a1;
         }
         
-        .input-hint {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-        
-        .input-hint.success {
-            color: #10b981;
-        }
-        
-        .input-hint.error {
-            color: #ef4444;
-        }
-        
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .btn {
-            flex: 1;
+        button[type="submit"] {
             padding: 1.1rem;
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+            color: #ffffff;
             border: none;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
-            color: white;
             box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+            margin-top: 0.5rem;
         }
         
-        .btn-primary:hover:not(:disabled) {
+        button[type="submit"]:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 25px rgba(3, 105, 161, 0.4);
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
         }
         
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .btn-secondary {
-            background: #f1f5f9;
-            color: #475569;
-        }
-        
-        .btn-secondary:hover {
-            background: #e2e8f0;
+        button[type="submit"]:active {
+            transform: translateY(0);
         }
         
         .form-footer {
@@ -392,7 +313,7 @@
             color: #0369a1;
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             display: inline-block;
             padding: 0.5rem 1rem;
             border-radius: 8px;
@@ -403,6 +324,18 @@
             background: rgba(3, 105, 161, 0.05);
         }
         
+        .welcome-badge {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+            color: #0369a1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #bfdbfe;
+        }
+        
         @media (max-width: 640px) {
             .container {
                 padding: 2rem 1.5rem;
@@ -410,241 +343,85 @@
             .logo h1 {
                 font-size: 2rem;
             }
-            .step-indicator {
-                display: none;
-            }
-            .button-group {
-                flex-direction: column;
+            .form-title h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+    </div>
+
     <div class="container">
         <div class="logo">
             <h1>Job<span>Finder</span></h1>
+            <p>Votre partenaire emploi au Cameroun</p>
         </div>
 
-        <div class="assistant-card">
-            <div class="assistant-header">
-                <div class="assistant-avatar">
-                    <i class="ri-robot-2-line"></i>
-                </div>
+        <div class="welcome-badge">
+            Bon retour parmi nous !
+        </div>
 
-                <div class="assistant-name">JobFinder Assistant</div>
-            </div>
-            <div class="assistant-message" id="assistantMessage">
-                Bon retour parmi nous ! Je suis ravie de vous revoir. Je vais vous aider à vous connecter à votre compte JobFinder pour accéder à vos opportunités d'emploi. C'est simple et rapide, on y va ?
-            </div>
+        <div class="form-title">
+            <h2>Connexion</h2>
+            <p>Accédez à votre espace personnel</p>
         </div>
 
         {% if messages %} {% for message in messages %}
-        <div class="django-messages {% if message.tags %}{{ message.tags }}-message{% endif %}">
+        <div class="message {% if message.tags %}{{ message.tags }}-message{% endif %}">
             {{ message }}
         </div>
         {% endfor %} {% endif %}
 
-        <div class="step-indicator">
-            <div class="step-progress" id="stepProgress"></div>
-            <div class="step active" data-step="0">
-                <div class="step-circle">1</div>
-                <div class="step-label">Identité</div>
-            </div>
-            <div class="step" data-step="1">
-                <div class="step-circle">2</div>
-                <div class="step-label">Mot de passe</div>
-            </div>
-            <div class="step" data-step="2">
-                <div class="step-circle">3</div>
-                <div class="step-label">Connexion</div>
-            </div>
-        </div>
-
         <form method="post" id="connexionForm">
             {% csrf_token %}
 
-            <div class="form-step active" data-step="0">
-                <div class="form-group">
-                    <label for="username">
-                        Nom d'utilisateur
-                        <span class="label-description">Veuillez entrer le nom d'utilisateur avec lequel vous avez créé votre compte JobFinder. C'est l'identifiant que vous avez choisi lors de votre inscription.</span>
-                    </label>
-                    <input type="text" id="username" name="username" placeholder="Ex: jean_dupont" autocomplete="username">
-                    <div class="input-hint" id="usernameHint">
-                        💡 Assurez-vous d'avoir entré le bon identifiant
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn btn-primary" onclick="validateUsername()">Continuer</button>
-                </div>
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur" required autocomplete="username">
             </div>
 
-            <div class="form-step" data-step="1">
-                <div class="form-group">
-                    <label for="password">
-                        Mot de passe
-                        <span class="label-description">Entrez le mot de passe associé à votre compte. C'est celui que vous avez défini lors de votre inscription. Attention à la casse des lettres.</span>
-                    </label>
-                    <div class="password-container">
-                        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" autocomplete="current-password">
-                        <span class="password-toggle" id="togglePassword">👁️</span>
-                    </div>
-                    <div class="input-hint" id="passwordHint">
-                        💡 Assurez-vous que le clavier n'est pas en majuscules
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Retour</button>
-                    <button type="button" class="btn btn-primary" onclick="validatePassword()">Continuer</button>
-                </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Votre mot de passe" required autocomplete="current-password">
+                <span class="password-toggle" id="togglePassword">👁️</span>
             </div>
 
-            <div class="form-step" data-step="2">
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
-                    <p style="color: #334155; font-weight: 600; margin-bottom: 0.5rem;">Prêt à vous connecter ?</p>
-                    <p style="color: #64748b; font-size: 0.9rem;">Cliquez sur le bouton ci-dessous pour accéder à votre compte et commencer votre recherche d'emploi.</p>
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Retour</button>
-                    <button type="submit" class="btn btn-primary">🔓 Se connecter à mon compte</button>
-                </div>
-            </div>
+            <button type="submit">Se connecter</button>
         </form>
 
         <div class="form-footer">
-            <p>Pas encore de compte ?</p>
+            <p>Vous n'avez pas encore de compte ?</p>
             <a href="{% url 'inscription' %}">Créer un compte gratuitement</a>
         </div>
     </div>
 
     <script>
-        let currentStep = 0;
-        const totalSteps = 3;
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
 
-        const messages = {
-            0: "Bon retour parmi nous ! Je suis ravie de vous revoir. Je vais vous aider à vous connecter à votre compte JobFinder. Veuillez d'abord entrer le nom d'utilisateur que vous avez choisi lors de votre inscription.",
-            1: "Merci ! Maintenant, veuillez entrer le mot de passe lié à ce compte. Assurez-vous que le clavier n'est pas en majuscules pour éviter les erreurs. Votre mot de passe respecte la casse.",
-            2: "Excellent ! Vous êtes prêt à vous connecter. Cliquez sur le bouton pour accéder à votre compte JobFinder et commencer à explorer les opportunités d'emploi qui vous attendent."
-        };
-
-        function updateStepIndicator() {
-            const steps = document.querySelectorAll('.step');
-            const progress = document.getElementById('stepProgress');
-
-            steps.forEach((step, index) => {
-                const circle = step.querySelector('.step-circle');
-                step.classList.remove('active', 'completed');
-
-                if (index < currentStep) {
-                    step.classList.add('completed');
-                    circle.textContent = '✓';
-                } else if (index === currentStep) {
-                    step.classList.add('active');
-                    circle.textContent = index + 1;
-                } else {
-                    circle.textContent = index + 1;
-                }
-            });
-
-            const progressWidth = (currentStep / (totalSteps - 1)) * 100;
-            progress.style.width = progressWidth + '%';
-        }
-
-        function updateAssistantMessage() {
-            document.getElementById('assistantMessage').textContent = messages[currentStep];
-        }
-
-        function nextStep() {
-            if (currentStep < totalSteps - 1) {
-                document.querySelectorAll('.form-step')[currentStep].classList.remove('active');
-                currentStep++;
-                document.querySelectorAll('.form-step')[currentStep].classList.add('active');
-                updateStepIndicator();
-                updateAssistantMessage();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 0) {
-                document.querySelectorAll('.form-step')[currentStep].classList.remove('active');
-                currentStep--;
-                document.querySelectorAll('.form-step')[currentStep].classList.add('active');
-                updateStepIndicator();
-                updateAssistantMessage();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        function validateUsername() {
-            const username = document.getElementById('username').value.trim();
-            const hint = document.getElementById('usernameHint');
-
-            if (!username) {
-                hint.textContent = '❌ Veuillez entrer votre nom d\'utilisateur';
-                hint.className = 'input-hint error';
-                return;
-            }
-
-            if (username.length < 3) {
-                hint.textContent = '❌ Le nom d\'utilisateur doit contenir au moins 3 caractères';
-                hint.className = 'input-hint error';
-                return;
-            }
-
-            hint.textContent = '✅ Nom d\'utilisateur validé ! Passons au mot de passe.';
-            hint.className = 'input-hint success';
-            setTimeout(nextStep, 600);
-        }
-
-        function validatePassword() {
-            const password = document.getElementById('password').value;
-            const hint = document.getElementById('passwordHint');
-
-            if (!password) {
-                hint.textContent = '❌ Veuillez entrer votre mot de passe';
-                hint.className = 'input-hint error';
-                return;
-            }
-
-            if (password.length < 8) {
-                hint.textContent = '❌ Le mot de passe doit contenir au moins 8 caractères';
-                hint.className = 'input-hint error';
-                return;
-            }
-
-            hint.textContent = '✅ Mot de passe vérifié ! Vous êtes prêt à vous connecter.';
-            hint.className = 'input-hint success';
-            setTimeout(nextStep, 600);
-        }
-
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
+        togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             this.textContent = type === 'password' ? '👁️' : '🔒';
         });
 
-        document.getElementById('connexionForm').addEventListener('submit', function(e) {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
+        const form = document.getElementById('connexionForm');
+        const inputs = form.querySelectorAll('input');
 
-            if (!username || !password) {
-                e.preventDefault();
-                alert('Veuillez remplir tous les champs de connexion');
-                return false;
-            }
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.01)';
+            });
+
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
         });
-
-        updateStepIndicator();
     </script>
 </body>
 

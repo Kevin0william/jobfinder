@@ -48,7 +48,7 @@ def connexion(request):
             login(request, user)
             return redirect('accueil')
         else:
-            messages.error(request, "Nom d’User ou mot de passe incorrect.")
+            messages.error(request, "Nom d’utilisateur ou mot de passe incorrect.")
 
     return render(request, 'app/connexion.html')
 
@@ -136,7 +136,7 @@ def discussion(request, user_id):
 
 @login_required
 def user_list(request):
-    users = User.objects.all().order_by('email').reverse()
+    users = User.objects.all().order_by('username')
     return render(request,'app/utilisateur.html',{'users':users})
 
 @login_required

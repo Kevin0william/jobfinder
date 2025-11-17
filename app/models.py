@@ -63,7 +63,7 @@ class Cv(models.Model):
     nom = models.CharField(max_length=100)
     age = models.PositiveIntegerField(null=True)
     email = models.EmailField()
-    telephone = models.CharField(max_length=9,validators=[RegexValidator(r'^\d{8,9}$',message='Numero invalide')])
+    telephone = models.CharField(max_length=20)
     competence = models.CharField(max_length=100,null=True,blank=True)
     description = models.TextField()
     experience= models.PositiveIntegerField()
